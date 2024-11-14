@@ -1,3 +1,29 @@
+To connect sql server from anywhere, do the following
+
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=/u01/app/oracle/product/19.0.0.0/dbhome_1
+export ORACLE_SID=vendb
+
+
+(   export PATH=$PATH:$ORACLE_HOME/bin   )
+
+sqlplus / as sysdba 
+
+
+
+
+From now onwards just type 
+sqlplus / as sysdba 
+
+to connect sql server
+
+
+
+
+
+
+
+
 tablespaces:
 CHECK ALL TABLE_SPACES AVAILABLE:
 
@@ -10,13 +36,13 @@ SELECT tablespace_name,
        status
 FROM   dba_tablespaces
 ORDER BY tablespace_name;
-
-
-
-
-
-
-
+TABLESPACE_NAME                BLOCK_SIZE EXTENT_MAN SEGMEN STATUS
+------------------------------ ---------- ---------- ------ ---------
+SYSAUX                               8192 LOCAL      AUTO   ONLINE
+SYSTEM                               8192 LOCAL      MANUAL ONLINE
+TEMP                                 8192 LOCAL      MANUAL ONLINE
+UNDOTBS1                             8192 LOCAL      MANUAL ONLINE
+USERS                                8192 LOCAL      AUTO   ONLINE
 
 
 CHECK FREE SPACE:
@@ -50,13 +76,12 @@ FROM   (
        ) 
 	   --where tablespace_name = 'USERS'
 ORDER BY tablespace_name;
-
-
-
-
-
-
-
+TABLESPACE_NAME               |   SIZE_MB|   FREE_MB|MAX_SIZE_MB|MAX_FREE_MB|  FREE_PCT|  USED_PCT
+------------------------------|----------|----------|-----------|-----------|----------|----------
+SYSAUX                        |       580|        34|      32767|      32221|        98|       .17
+SYSTEM                        |       910|         4|      32767|      31861|        97|       .28
+UNDOTBS1                      |       340|       106|      32767|      32533|        99|       .07
+USERS                         |         5|         2|      32767|      32764|        99|         0
 
 
 CHECK ALL THE DATAFILE OF A TABLESPACE
@@ -73,9 +98,12 @@ SELECT tablespace_name,
 FROM   dba_data_files
 --WHERE  tablespace_name = 'USERS'
 ORDER BY file_id;
-
-
-
+TABLESPACE_NAME               |   FILE_ID|FILE_NAME                                                             |   SIZE_MB|MAX_SIZE_MB|AUT|INCREMENT_BY|STATUS
+------------------------------|----------|----------------------------------------------------------------------|----------|-----------|---|------------|---------
+SYSTEM                        |         1|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_system_mlmhclkv_.dbf     |       910|      32768|YES|        1280|AVAILABLE
+SYSAUX                        |         3|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_sysaux_mlmhdovv_.dbf     |       580|      32768|YES|        1280|AVAILABLE
+UNDOTBS1                      |         4|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_undotbs1_mlmhf59q_.dbf   |       340|      32768|YES|         640|AVAILABLE
+USERS                         |         7|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_users_mlmhf6dw_.dbf      |         5|      32768|YES|         160|AVAILABLE
 
 
 
@@ -218,6 +246,7 @@ alter database datafile '+DATA/ORADB/DATAFILE/users.279.1102165131' resize 150M;
 Alter database datafile '/u01/app/oracle/oradata/VENDB/datafile/HRMS_002.dbf' offline;
 CHECK ALL THE DATAFILE OF A TABLESPACE
 
+Alter database HRMS_TS offline;
 
 
 Alter database datafile '/u01/app/oracle/oradata/VENDB/datafile/HRMS_002.dbf' online;
@@ -227,6 +256,60 @@ if required do media recovery for this datafile.
 recover datafile 8;
 recover datafile '/u01/app/oracle/oradata/VENDB/datafile/HRMS_002.dbf';
 
+
+
+				************Making Tablespace offline/online***********
+
+alter tablespace HRMS_TS offline;
+CHECK ALL TABLE_SPACES AVAILABLE:
+
+TABLESPACE_NAME     |BLOCK_SIZE|EXTENT_MAN|SEGMEN|STATUS
+--------------------|----------|----------|------|---------
+HRMS_TS 	    |	   8192|LOCAL	  |AUTO  |OFFLINE
+SYSAUX		    |	   8192|LOCAL	  |AUTO  |ONLINE
+SYSTEM		    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP		    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP_NEW	    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP_NEW_01	    |	   8192|LOCAL	  |MANUAL|ONLINE
+UNDOTBS1	    |	   8192|LOCAL	  |MANUAL|ONLINE
+UNDOTBS_02	    |	   8192|LOCAL	  |MANUAL|ONLINE
+USERS		    |	   8192|LOCAL	  |AUTO  |ONLINE
+
+CHECK ALL THE DATAFILE OF A TABLESPACE
+
+TABLESPACE_NAME     |	FILE_ID|FILE_NAME							      |   SIZE_MB|MAX_SIZE_MB|AUT|INCREMENT_BY|STATUS
+--------------------|----------|----------------------------------------------------------------------|----------|-----------|---|------------|---------
+SYSTEM		    |	      1|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_system_mlmhclkv_.dbf     |       910|	32768|YES|	  1280|AVAILABLE
+UNDOTBS_02	    |	      2|/u01/undo02.dbf 						      						  |       200|	32768|YES|	     1|AVAILABLE
+SYSAUX		    |	      3|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_sysaux_mlmhdovv_.dbf     |       590|	32768|YES|	  1280|AVAILABLE
+UNDOTBS1	    |	      4|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_undotbs1_mlmhf59q_.dbf   |       340|	32768|YES|	   640|AVAILABLE
+HRMS_TS 	    |	      5|/u01/app/oracle/oradata/VENDB/datafile/HRMS_001.dbf		      		  | 	     |	     |	 |	      |AVAILABLE
+USERS		    |	      7|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_users_mlmhf6dw_.dbf      | 	    5|	32768|YES|	   160|AVAILABLE
+
+
+alter tablespace HRMS_TS online;
+CHECK ALL TABLE_SPACES AVAILABLE:
+TABLESPACE_NAME     |BLOCK_SIZE|EXTENT_MAN|SEGMEN|STATUS
+--------------------|----------|----------|------|---------
+HRMS_TS 	    |	   8192|LOCAL	  |AUTO  |ONLINE
+SYSAUX		    |	   8192|LOCAL	  |AUTO  |ONLINE
+SYSTEM		    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP		    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP_NEW	    |	   8192|LOCAL	  |MANUAL|ONLINE
+TEMP_NEW_01	    |	   8192|LOCAL	  |MANUAL|ONLINE
+UNDOTBS1	    |	   8192|LOCAL	  |MANUAL|ONLINE
+UNDOTBS_02	    |	   8192|LOCAL	  |MANUAL|ONLINE
+USERS		    |	   8192|LOCAL	  |AUTO  |ONLINE
+
+CHECK ALL THE DATAFILE OF A TABLESPACE
+TABLESPACE_NAME     |	FILE_ID|FILE_NAME							      |   SIZE_MB|MAX_SIZE_MB|AUT|INCREMENT_BY|STATUS
+--------------------|----------|----------------------------------------------------------------------|----------|-----------|---|------------|---------
+SYSTEM		    |	      1|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_system_mlmhclkv_.dbf     |       910|	32768|YES|	  1280|AVAILABLE
+UNDOTBS_02	    |	      2|/u01/undo02.dbf 						      						  |       200|	32768|YES|	     1|AVAILABLE
+SYSAUX		    |	      3|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_sysaux_mlmhdovv_.dbf     |       590|	32768|YES|	  1280|AVAILABLE
+UNDOTBS1	    |	      4|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_undotbs1_mlmhf59q_.dbf   |       340|	32768|YES|	   640|AVAILABLE
+HRMS_TS 	    |	      5|/u01/app/oracle/oradata/VENDB/datafile/HRMS_001.dbf		     		  |       200|	32768|YES|	     1|AVAILABLE
+USERS		    |	      7|/u01/app/oracle/oradata/VENDB/datafile/o1_mf_users_mlmhf6dw_.dbf      | 	    5|	32768|YES|	   160|AVAILABLE
 
 
 
@@ -259,3 +342,15 @@ no rows selected
 
 drop tablespace TESTING including contents and datafiles;
 Tablespace dropped.
+
+
+
+
+
+
+
+
+
+
+
+
