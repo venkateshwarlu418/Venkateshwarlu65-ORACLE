@@ -1,0 +1,152 @@
+-----############UNDO:
+KNOW YOUR DEFAULT UNDO TABLE SPACE;
+SHOW PARAMETER UNDO_TABLESPACE;
+select VALUE from v$parameter where NAME='undo_tablespace';
+
+SET UNDO_RETENTION value at any time using:
+SQL> ALTER SYSTEM SET UNDO_RETENTION = 2400;
+
+CREATING UNDO TS:
+CREATE UNDO TABLESPACE undotbs_02 DATAFILE '/u01/undo02.dbf' SIZE 2M REUSE AUTOEXTEND ON RETENTION NOGUARANTEE;
+
+CHANGE UNDO TABLESPACE
+ALTER SYSTEM SET UNDO_TABLESPACE = undotbs_02;
+
+KNOW UNDO RETENTION
+show parameter undo;
+
+Enabling and disabling undo retention guarantee
+SQL> ALTER TABLESPACE undotbs_02 RETENTION GUARANTEE;
+SQL> ALTER TABLESPACE undotbs_02 RETENTION NOGUARANTEE;
+
+CHECK IF YOUR UNDO HAS GUATENTEED RETENTION
+select tablespace_name ,retention from dba_tablespaces where contents = 'UNDO';
+
+
+
+
+
+
+													***********   UNDO Practice ****************
+
+										
+
+SHOW PARAMETER UNDO_TABLESPACE;
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+undo_tablespace 		     string	 UNDOTBS1
+
+
+
+select VALUE from v$parameter where NAME='undo_tablespace';
+
+VALUE
+--------------------------------------------------------------------------------
+UNDOTBS1
+
+SET UNDO_RETENTION value at any time using:
+ALTER SYSTEM SET UNDO_RETENTION = 2400;
+
+system altered
+KNOW YOUR RETENTION
+show parameter undo;
+
+NAME				     TYPE	 		VALUE
+------------------------------------ ----------- ------------------------------
+		temp_undo_enabled		     	boolean	 FALSE
+		undo_management 		     	string	 AUTO
+		undo_retention			     	integer	 2400
+		undo_tablespace 		     	string	 UNDOTBS1
+
+CREATING UNDO TS:
+CREATE UNDO TABLESPACE undotbs_02 DATAFILE '/u01/undo02.dbf' SIZE 2M REUSE AUTOEXTEND ON RETENTION NOGUARANTEE;
+
+Tablespace created.
+
+
+CHANGE UNDO TABLESPACE
+ALTER SYSTEM SET UNDO_TABLESPACE = undotbs_02;
+
+System altered.
+know your retention
+show parameter undo;
+NAME				     TYPE	 		VALUE
+------------------------------------ ----------- ------------------------------
+temp_undo_enabled		     boolean	 FALSE
+undo_management 		     string	 	AUTO
+undo_retention			     integer	 3600
+undo_tablespace 		     string	 UNDOTBS_02
+
+
+Enabling and disabling undo retention guarantee
+alter tablespace undotbs1 retention guarantee;
+
+Tablespace altered.
+
+select tablespace_name ,retention from dba_tablespaces where contents = 'UNDO';
+
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+UNDOTBS1		       GUARANTEE
+
+
+
+alter tablespace undotbs1 retention noguarantee;
+
+Tablespace altered.
+
+select tablespace_name ,retention from dba_tablespaces where contents = 'UNDO';
+
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+UNDOTBS1		       NOGUARANTEE
+
+
+CHECK IF YOUR UNDO HAS GUATENTEED RETENTION
+select tablespace_name ,retention from dba_tablespaces where contents = 'UNDO';
+
+TABLESPACE_NAME     |RETENTION
+--------------------|-----------
+UNDOTBS1	    |NOGUARANTEE
+UNDOTBS_02	    |NOGUARANTEE
+
+
+
+to check the tablespaces having retention guarantee or not
+
+SELECT tablespace_name, retention FROM dba_tablespaces;
+
+TABLESPACE_NAME 	       RETENTION
+------------------------------ -----------
+SYSTEM			       NOT APPLY
+SYSAUX			       NOT APPLY
+UNDOTBS1		       NOGUARANTEE
+TEMP			       NOT APPLY
+USERS			       NOT APPLY
+HRMS_TS 		       NOT APPLY
+UNDOTBS_02		       NOGUARANTEE
+TEMP_NEW		       NOT APPLY
+TEMP_NEW_01		       NOT APPLY
+
+
+
+
+
+
+
+
+
+
+
+
+
+View Undo storage.
+Use the following queries to view undo tablespaces and rollback segments: 
+
+SELECT * FROM DBA_TABLESPACES WHERE CONTENTS = 'UNDO'; 
+SELECT * FROM V$PARAMETER WHERE NAME = 'undo_tablespace';
+
+Use the following queries to view undo statistics: 
+SELECT * FROM V$ROLLSTAT; 
+SELECT * FROM V$UNDOSTAT;
