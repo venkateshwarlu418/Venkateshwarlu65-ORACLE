@@ -1,0 +1,222 @@
+
+edit spfile/pfile
+shut down instance
+copy physical ctrl file to new location
+startup
+
+alter system set <parameter_name> = <value> scope = both/spfile/memory;
+
+sql>
+
+alter controlfiles parameter;
+alter SYSTEM set control_files = '/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl' , '/u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl', '/u01/multiplex/control_file/control003.ctl' scope = spfile;
+
+
+shut down instance;
+shut immediate;
+
+go to cd u01/app/oracle/product/19.0.0.0/dbhome_1/dbs
+and Make sure that do the following below in same location in oracle one by one
+	mkdir -p /u01/multiplex/control_file
+	cp /u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl /u01/multiplex/control_file/control003.ctl
+	
+and check for directory and file in that directory available or NOT
+startup;
+
+
+
+alter system set control_files='/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl','/u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl','/u01/app/oracle/multiplex/control_001.ctl' scope =spfile;
+
+
+
+								/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl, /u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl
+								
+								
+								
+								*****************************************************				
+								
+SQL> startup;
+ORACLE instance started.
+
+Total System Global Area 1543500144 bytes
+Fixed Size		    8896880 bytes
+Variable Size		  889192448 bytes
+Database Buffers	  637534208 bytes
+Redo Buffers		    7876608 bytes
+ORA-00205: error in identifying control file, check alert log for more info
+								
+	
+								
+		  processes                = 300
+		  memory_target            = 1472M
+		  control_files            = "/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl"
+		  control_files            = "/u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl"
+		  control_files            = "/u01/app/oracle/multiplex/control_001.ctl"
+		  db_block_size            = 8192
+		  compatible               = "19.0.0"
+		  log_archive_dest_1       = "LOCATION=/USE_DB_RECOVERY_FILE_DEST"
+		  db_create_file_dest      = "/u01/app/oracle/oradata"
+		  db_recovery_file_dest    = "/u01/app/oracle/fast_recovery_area"
+		  db_recovery_file_dest_size= 8G
+		  undo_tablespace          = "UNDOTBS1"
+		  remote_login_passwordfile= "EXCLUSIVE"
+		  dispatchers              = "(PROTOCOL=TCP) (SERVICE=vendbXDB)"
+		  audit_file_dest          = "/u01/app/oracle/admin/vendb/adump"
+		  audit_trail              = "DB"
+		  db_name                  = "vendb"
+		  open_cursors             = 300
+		  diagnostic_dest          = "/u01/app/oracle"
+		  
+		  
+
+Error found in control file 3, so removing controlfile 3 and copy remained values into pfile and created spfile from pfile
+ORA-00210: cannot open the specified control file
+ORA-00202: control file: '/u01/app/oracle/multiplex/control_001.ctl'
+ORA-27037: unable to obtain file status
+Linux-x86_64 Error: 2: No such file or directory
+
+Copiying below the following into (vi initvendb.ora)
+ 
+
+processes                = 300
+memory_target            = 1472M
+control_files            = "/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl"
+control_files            = "/u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl"
+db_block_size            = 8192
+compatible               = "19.0.0"
+log_archive_dest_1       = "LOCATION=/USE_DB_RECOVERY_FILE_DEST"
+db_create_file_dest      = "/u01/app/oracle/oradata"
+db_recovery_file_dest    = "/u01/app/oracle/fast_recovery_area"
+db_recovery_file_dest_size= 8G
+undo_tablespace          = "UNDOTBS1"
+remote_login_passwordfile= "EXCLUSIVE"
+dispatchers              = "(PROTOCOL=TCP) (SERVICE=vendbXDB)"
+audit_file_dest          = "/u01/app/oracle/admin/vendb/adump"
+audit_trail              = "DB"
+db_name                  = "vendb"
+open_cursors             = 300
+diagnostic_dest          = "/u01/app/oracle"
+
+:wq!
+
+
+next go to oracle home location
+[oracle@venky ~]$ sqlplus / as sysdba
+
+Connected to an idle instance.
+
+create spfile from pfile
+create pfile from spfile
+
+now startup the Database
+
+
+startup;
+ORACLE instance started.
+
+Total System Global Area 1543500144 bytes
+Fixed Size		    8896880 bytes
+Variable Size		  889192448 bytes
+Database Buffers	  637534208 bytes
+Redo Buffers		    7876608 bytes
+Database mounted.
+Database opened.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> show parameter control
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+control_file_record_keep_time	     integer	 7
+control_files			     		 string	 /u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl, /u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_m
+											 f_mlmhgbf2_.ctl
+control_management_pack_access	     string	 DIAGNOSTIC+TUNING
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> alter SYSTEM set control_files = '/u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl' , '/u01/app/oracle/fast_recovery_area/VENDB/controlfile/o1_mf_mlmhgbf2_.ctl', '/u01/multiplex/control_file/control003.ctl' scope = spfile;
+
+System altered.
+
+SQL> show parameter control
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+control_file_record_keep_time	     integer	 7
+control_files			     		 string	 /u01/app/oracle/oradata/VENDB/
+											 controlfile/o1_mf_mlmhgbcp_.ct
+											 l, /u01/app/oracle/fast_recove
+											 ry_area/VENDB/controlfile/o1_m
+											 f_mlmhgbf2_.ctl
+control_management_pack_access	     string	 DIAGNOSTIC+TUNING
+
+
+SQL> shut immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+oracle@venky ~]$ mkdir -p /u01/multiplex/control_file
+[oracle@venky ~]$ cp /u01/app/oracle/oradata/VENDB/controlfile/o1_mf_mlmhgbcp_.ctl /u01/multiplex/control_file/control003.ctl
+
+[oracle@venky ~]$ cd u01
+[oracle@venky u01]$ ll
+total 0
+drwxr-xr-x. 3 oracle oinstall 26 Nov 18 15:13 multiplex
+[oracle@venky u01]$ cd multiplex
+[oracle@venky multiplex]$ ll
+total 0
+drwxr-xr-x. 2 oracle oinstall 6 Nov 18 15:13 control_file
+[oracle@venky multiplex]$ ls -lrt
+total 0
+drwxr-xr-x. 2 oracle oinstall 6 Nov 18 15:13 control_file
+[oracle@venky multiplex]$ cd
+
+[oracle@venky ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Nov 18 19:49:45 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup;
+ORACLE instance started.
+
+Total System Global Area 1543500144 bytes
+Fixed Size		    8896880 bytes
+Variable Size		  889192448 bytes
+Database Buffers	  637534208 bytes
+Redo Buffers		    7876608 bytes
+Database mounted.
+Database opened.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> show parameter control
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+control_file_record_keep_time	     integer	 7
+control_files			     		 string	 /u01/app/oracle/oradata/VENDB/
+											 controlfile/o1_mf_mlmhgbcp_.ct
+											 l, /u01/app/oracle/fast_recove
+											 ry_area/VENDB/controlfile/o1_m
+											 f_mlmhgbf2_.ctl, /u01/multiple
+											 x/control_file/control003.ctl
+control_management_pack_access	     string	 DIAGNOSTIC+TUNING
