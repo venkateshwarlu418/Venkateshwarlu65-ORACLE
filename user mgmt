@@ -1,0 +1,1759 @@
+
+					set lines 200 pages 200;
+					col username for a25;
+					col profile for a20;
+					col DEFAULT_TABLESPACE for a20;
+					col TEMPORARY_TABLESPACE for a20;
+					col ACCOUNT_STATUS for a20;
+					select username,DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE,PROFILE,ACCOUNT_STATUS from dba_users order by 1 ;
+					
+		USERNAME		  DEFAULT_TABLESPACE   TEMPORARY_TABLESPACE PROFILE		 ACCOUNT_STATUS
+		------------------------- -------------------- -------------------- -------------------- --------------------
+		ANONYMOUS		  SYSAUX	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+		APPQOSSYS		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		AUDSYS			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		CTXSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+		DBSFWUSER		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DBSNMP			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DIP			  	  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DVF			  	  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DVSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GGSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMADMIN_INTERNAL SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMCATUSER		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMROOTUSER		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMUSER 		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		LBACSYS 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		MDDATA			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		MDSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OJVMSYS 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OLAPSYS 		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORACLE_OCM		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDDATA 		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDPLUGINS		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDSYS			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OUTLN			  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		REMOTE_SCHEDULER
+		_AGENT	  		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SI_INFORMTN
+		_SCHEMA			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYS			      SYSTEM	       TEMP_NEW 	    DEFAULT		 OPEN
+		SYS$UMF 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSBACKUP		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSDG			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSKM			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSRAC			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSTEM			  SYSTEM	       TEMP_NEW 	    DEFAULT		 OPEN
+		WMSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		XDB			      SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		XS$NULL 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+
+
+
+
+			PROFILES:
+
+			Get profile information....
+
+			set lines 200 ;
+			set pages 200;
+			col profile for a32;
+			col resource_name for a50;
+			col limit for a50;
+
+			select distinct profile from dba_profiles ;
+
+			PROFILE
+			--------------------------------
+			DEFAULT
+			ORA_STIG_PROFILE
+
+
+				CREATE PROFILE:
+
+				CREATE PROFILE APP_PROFILE
+				LIMIT
+				COMPOSITE_LIMIT UNLIMITED
+				SESSIONS_PER_USER 2
+				CPU_PER_SESSION UNLIMITED
+				CPU_PER_CALL UNLIMITED
+				LOGICAL_READS_PER_SESSION UNLIMITED
+				LOGICAL_READS_PER_CALL UNLIMITED
+				IDLE_TIME 1
+				CONNECT_TIME 5
+				PRIVATE_SGA UNLIMITED
+				FAILED_LOGIN_ATTEMPTS 10
+				PASSWORD_LIFE_TIME 180
+				PASSWORD_REUSE_TIME UNLIMITED
+				PASSWORD_REUSE_MAX UNLIMITED
+				PASSWORD_VERIFY_FUNCTION NULL
+				PASSWORD_LOCK_TIME UNLIMITED
+				PASSWORD_GRACE_TIME UNLIMITED;
+
+
+
+To check app_profile
+
+		select profile,resource_name, limit from dba_profiles where profile = 'APP_PROFILE';
+		PROFILE 			 RESOURCE_NAME					    LIMIT
+		-------------------------------- --------------------------------------------------
+		APP_PROFILE			 COMPOSITE_LIMIT				    UNLIMITED
+		APP_PROFILE			 SESSIONS_PER_USER				    2
+		APP_PROFILE			 CPU_PER_SESSION				    UNLIMITED
+		APP_PROFILE			 CPU_PER_CALL					    UNLIMITED
+		APP_PROFILE			 LOGICAL_READS_PER_SESSION			UNLIMITED
+		APP_PROFILE			 LOGICAL_READS_PER_CALL 			UNLIMITED
+		APP_PROFILE			 IDLE_TIME					        1
+		APP_PROFILE			 CONNECT_TIME					    5
+		APP_PROFILE			 PRIVATE_SGA					    UNLIMITED
+		APP_PROFILE			 FAILED_LOGIN_ATTEMPTS				10
+		APP_PROFILE			 PASSWORD_LIFE_TIME				    180
+		APP_PROFILE			 PASSWORD_REUSE_TIME				UNLIMITED
+		APP_PROFILE			 PASSWORD_REUSE_MAX				    UNLIMITED
+		APP_PROFILE			 PASSWORD_VERIFY_FUNCTION			NULL
+		APP_PROFILE			 PASSWORD_LOCK_TIME				    UNLIMITED
+		APP_PROFILE			 PASSWORD_GRACE_TIME				UNLIMITED
+		APP_PROFILE			 INACTIVE_ACCOUNT_TIME				DEFAULT
+
+
+
+NOTE: you cannot use scope = memory or scope = both for the static parameters(w.r.t instance).
+
+you should use scope = spfile 
+And that parameter to reflect you should restart/bounce instance.
+
+
+		set lines 200 pages 200;
+		col username for a25;
+		col profile for a20;
+		col DEFAULT_TABLESPACE for a20;
+		col TEMPORARY_TABLESPACE for a20;
+		col ACCOUNT_STATUS for a20;
+		select username,DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE,PROFILE,ACCOUNT_STATUS from dba_users order by 1 ;
+
+		USERNAME		  DEFAULT_TABLESPACE   TEMPORARY_TABLESPACE PROFILE		 ACCOUNT_STATUS
+		------------------------- -------------------- -------------------- -------------------- --------------------
+		ANONYMOUS		  SYSAUX	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+		APPQOSSYS		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		AUDSYS			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		CTXSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+		DBSFWUSER		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DBSNMP			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DIP			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DVF			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		DVSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GGSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMADMIN_INTERNAL	  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMCATUSER		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMROOTUSER		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		GSMUSER 		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		LBACSYS 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		MDDATA			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		MDSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OJVMSYS 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OLAPSYS 		  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORACLE_OCM		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDDATA 		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDPLUGINS		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		ORDSYS			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		OUTLN			  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		REMOTE_SCHEDULER_AGENT	  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SCOTT			  USERS 	       TEMP		    APP_PROFILE 	 OPEN
+		SI_INFORMTN_SCHEMA	  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYS			  SYSTEM	       TEMP_NEW 	    DEFAULT		 OPEN
+		SYS$UMF 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSBACKUP		  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSDG			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSKM			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSRAC			  USERS 	       TEMP_NEW 	    DEFAULT		 LOCKED
+		SYSTEM			  SYSTEM	       TEMP_NEW 	    DEFAULT		 OPEN
+		TEST			  USERS 	       TEMP		    DEFAULT		 OPEN
+		WMSYS			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		XDB			  SYSAUX	       TEMP_NEW 	    DEFAULT		 LOCKED
+		XS$NULL 		  SYSTEM	       TEMP_NEW 	    DEFAULT		 EXPIRED & LOCKED
+
+
+
+
+
+
+
+PROFILES:
+
+Get profile information....
+
+		set lines 200 ;
+		set pages 200;
+		col profile for a32;
+		col resource_name for a50;
+		col limit for a50;
+		select distinct profile from dba_profiles ;
+		
+		PROFILE
+		--------------------------------
+		DEFAULT
+		ORA_STIG_PROFILE
+		APP_PROFILE
+
+
+set lines 200
+col profile for a15
+col resource_name for a30
+col limit for a10
+select profile,resource_name, limit from dba_profiles where profile = 'APP_PROFILE';
+
+
+CREATE PROFILE:
+
+CREATE PROFILE APP_PROFILE
+LIMIT
+COMPOSITE_LIMIT UNLIMITED
+SESSIONS_PER_USER 2
+CPU_PER_SESSION UNLIMITED
+CPU_PER_CALL UNLIMITED
+LOGICAL_READS_PER_SESSION UNLIMITED
+LOGICAL_READS_PER_CALL UNLIMITED
+IDLE_TIME 1
+CONNECT_TIME 5
+PRIVATE_SGA UNLIMITED
+FAILED_LOGIN_ATTEMPTS 10
+PASSWORD_LIFE_TIME 180
+PASSWORD_REUSE_TIME UNLIMITED
+PASSWORD_REUSE_MAX UNLIMITED
+PASSWORD_VERIFY_FUNCTION NULL
+PASSWORD_LOCK_TIME UNLIMITED
+PASSWORD_GRACE_TIME UNLIMITED;
+
+
+
+set lines 200
+col profile for a15
+col resource_name for a30
+col limit for a10
+select profile,resource_name, limit from dba_profiles where profile = 'VENKY_PROFILE';
+CREATE PROFILE VENKY_PROFILE
+LIMIT
+COMPOSITE_LIMIT UNLIMITED
+SESSIONS_PER_USER 2
+CPU_PER_SESSION UNLIMITED
+CPU_PER_CALL UNLIMITED
+LOGICAL_READS_PER_SESSION UNLIMITED
+LOGICAL_READS_PER_CALL UNLIMITED
+IDLE_TIME 10
+CONNECT_TIME 2
+PRIVATE_SGA UNLIMITED
+FAILED_LOGIN_ATTEMPTS 2
+PASSWORD_LIFE_TIME 10
+PASSWORD_REUSE_TIME UNLIMITED
+PASSWORD_REUSE_MAX UNLIMITED
+PASSWORD_VERIFY_FUNCTION NULL
+PASSWORD_LOCK_TIME UNLIMITED
+PASSWORD_GRACE_TIME UNLIMITED;
+alter profile:
+
+ALTER PROFILE APP_PROFILE LIMIT SESSIONS_PER_USER 1;
+ALTER PROFILE APP_PROFILE LIMIT FAILED_LOGIN_ATTEMPTS 3;
+
+
+ROLES
+--check available roles.
+		col role for a30
+		select distinct ROLE  from role_role_privs ;
+		ROLE
+		------------------------------
+		DATAPUMP_IMP_FULL_DATABASE
+		HS_ADMIN_ROLE
+		JAVASYSPRIV
+		DATAPUMP_EXP_FULL_DATABASE
+		OEM_MONITOR
+		EXP_FULL_DATABASE
+		SELECT_CATALOG_ROLE
+		EXECUTE_CATALOG_ROLE
+		LOGSTDBY_ADMINISTRATOR
+		EM_EXPRESS_BASIC
+		RECOVERY_CATALOG_OWNER_VPD
+
+		ROLE
+		------------------------------
+		GSMADMIN_ROLE
+		DBA
+		IMP_FULL_DATABASE
+		SYSUMF_ROLE
+		GSMUSER_ROLE
+		RESOURCE
+		GSM_POOLADMIN_ROLE
+		EM_EXPRESS_ALL
+		GSMROOTUSER_ROLE
+
+
+---to check grants of a ROLES
+
+select ROLE, GRANTED_ROLE  from role_role_privs where role='CONNECT';
+select ROLE, GRANTED_ROLE  from role_role_privs where role='VENKY';
+
+-- ALL System privileges  
+
+		SELECT distinct PRIVILEGE FROM DBA_SYS_PRIVS order by 1;
+		
+		PRIVILEGE
+		----------------------------------------
+		ADMINISTER ANY SQL TUNING SET
+		ADMINISTER DATABASE TRIGGER
+		ADMINISTER KEY MANAGEMENT
+		ADMINISTER RESOURCE MANAGER
+		ADMINISTER SQL MANAGEMENT OBJECT
+		ADMINISTER SQL TUNING SET
+		ADVISOR
+		ALTER ANY ANALYTIC VIEW
+		ALTER ANY ASSEMBLY
+		ALTER ANY ATTRIBUTE DIMENSION
+		ALTER ANY CLUSTER
+
+		PRIVILEGE
+		----------------------------------------
+		ALTER ANY CUBE
+		ALTER ANY CUBE BUILD PROCESS
+		ALTER ANY CUBE DIMENSION
+		ALTER ANY DIMENSION
+		ALTER ANY EDITION
+		ALTER ANY EVALUATION CONTEXT
+		ALTER ANY HIERARCHY
+		ALTER ANY INDEX
+		ALTER ANY INDEXTYPE
+		ALTER ANY LIBRARY
+		ALTER ANY MATERIALIZED VIEW
+
+		PRIVILEGE
+		----------------------------------------
+		ALTER ANY MEASURE FOLDER
+		ALTER ANY MINING MODEL
+		ALTER ANY OPERATOR
+		ALTER ANY OUTLINE
+		ALTER ANY PROCEDURE
+		ALTER ANY ROLE
+		ALTER ANY RULE
+		ALTER ANY RULE SET
+		ALTER ANY SEQUENCE
+		ALTER ANY SQL PROFILE
+		ALTER ANY SQL TRANSLATION PROFILE
+
+		PRIVILEGE
+		----------------------------------------
+		ALTER ANY TABLE
+		ALTER ANY TRIGGER
+		ALTER ANY TYPE
+		ALTER DATABASE
+		ALTER LOCKDOWN PROFILE
+		ALTER PROFILE
+		ALTER RESOURCE COST
+		ALTER ROLLBACK SEGMENT
+		ALTER SESSION
+		ALTER SYSTEM
+		ALTER TABLESPACE
+
+		PRIVILEGE
+		----------------------------------------
+		ALTER USER
+		ANALYZE ANY
+		ANALYZE ANY DICTIONARY
+		AUDIT ANY
+		AUDIT SYSTEM
+		BACKUP ANY TABLE
+		BECOME USER
+		CHANGE NOTIFICATION
+		COMMENT ANY MINING MODEL
+		COMMENT ANY TABLE
+		CREATE ANALYTIC VIEW
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE ANY ANALYTIC VIEW
+		CREATE ANY ASSEMBLY
+		CREATE ANY ATTRIBUTE DIMENSION
+		CREATE ANY CLUSTER
+		CREATE ANY CONTEXT
+		CREATE ANY CREDENTIAL
+		CREATE ANY CUBE
+		CREATE ANY CUBE BUILD PROCESS
+		CREATE ANY CUBE DIMENSION
+		CREATE ANY DIMENSION
+		CREATE ANY DIRECTORY
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE ANY EDITION
+		CREATE ANY EVALUATION CONTEXT
+		CREATE ANY HIERARCHY
+		CREATE ANY INDEX
+		CREATE ANY INDEXTYPE
+		CREATE ANY JOB
+		CREATE ANY LIBRARY
+		CREATE ANY MATERIALIZED VIEW
+		CREATE ANY MEASURE FOLDER
+		CREATE ANY MINING MODEL
+		CREATE ANY OPERATOR
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE ANY OUTLINE
+		CREATE ANY PROCEDURE
+		CREATE ANY RULE
+		CREATE ANY RULE SET
+		CREATE ANY SEQUENCE
+		CREATE ANY SQL PROFILE
+		CREATE ANY SQL TRANSLATION PROFILE
+		CREATE ANY SYNONYM
+		CREATE ANY TABLE
+		CREATE ANY TRIGGER
+		CREATE ANY TYPE
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE ANY VIEW
+		CREATE ASSEMBLY
+		CREATE ATTRIBUTE DIMENSION
+		CREATE CLUSTER
+		CREATE CREDENTIAL
+		CREATE CUBE
+		CREATE CUBE BUILD PROCESS
+		CREATE CUBE DIMENSION
+		CREATE DATABASE LINK
+		CREATE DIMENSION
+		CREATE EVALUATION CONTEXT
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE EXTERNAL JOB
+		CREATE HIERARCHY
+		CREATE INDEXTYPE
+		CREATE JOB
+		CREATE LIBRARY
+		CREATE LOCKDOWN PROFILE
+		CREATE MATERIALIZED VIEW
+		CREATE MEASURE FOLDER
+		CREATE MINING MODEL
+		CREATE OPERATOR
+		CREATE PLUGGABLE DATABASE
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE PROCEDURE
+		CREATE PROFILE
+		CREATE PUBLIC DATABASE LINK
+		CREATE PUBLIC SYNONYM
+		CREATE ROLE
+		CREATE ROLLBACK SEGMENT
+		CREATE RULE
+		CREATE RULE SET
+		CREATE SEQUENCE
+		CREATE SESSION
+		CREATE SQL TRANSLATION PROFILE
+
+		PRIVILEGE
+		----------------------------------------
+		CREATE SYNONYM
+		CREATE TABLE
+		CREATE TABLESPACE
+		CREATE TRIGGER
+		CREATE TYPE
+		CREATE USER
+		CREATE VIEW
+		DEBUG ANY PROCEDURE
+		DEBUG CONNECT ANY
+		DEBUG CONNECT SESSION
+		DELETE ANY CUBE DIMENSION
+
+		PRIVILEGE
+		----------------------------------------
+		DELETE ANY MEASURE FOLDER
+		DELETE ANY TABLE
+		DEQUEUE ANY QUEUE
+		DROP ANY ANALYTIC VIEW
+		DROP ANY ASSEMBLY
+		DROP ANY ATTRIBUTE DIMENSION
+		DROP ANY CLUSTER
+		DROP ANY CONTEXT
+		DROP ANY CUBE
+		DROP ANY CUBE BUILD PROCESS
+		DROP ANY CUBE DIMENSION
+
+		PRIVILEGE
+		----------------------------------------
+		DROP ANY DIMENSION
+		DROP ANY DIRECTORY
+		DROP ANY EDITION
+		DROP ANY EVALUATION CONTEXT
+		DROP ANY HIERARCHY
+		DROP ANY INDEX
+		DROP ANY INDEXTYPE
+		DROP ANY LIBRARY
+		DROP ANY MATERIALIZED VIEW
+		DROP ANY MEASURE FOLDER
+		DROP ANY MINING MODEL
+
+		PRIVILEGE
+		----------------------------------------
+		DROP ANY OPERATOR
+		DROP ANY OUTLINE
+		DROP ANY PROCEDURE
+		DROP ANY ROLE
+		DROP ANY RULE
+		DROP ANY RULE SET
+		DROP ANY SEQUENCE
+		DROP ANY SQL PROFILE
+		DROP ANY SQL TRANSLATION PROFILE
+		DROP ANY SYNONYM
+		DROP ANY TABLE
+
+		PRIVILEGE
+		----------------------------------------
+		DROP ANY TRIGGER
+		DROP ANY TYPE
+		DROP ANY VIEW
+		DROP LOCKDOWN PROFILE
+		DROP PROFILE
+		DROP PUBLIC DATABASE LINK
+		DROP PUBLIC SYNONYM
+		DROP ROLLBACK SEGMENT
+		DROP TABLESPACE
+		DROP USER
+		EM EXPRESS CONNECT
+
+		PRIVILEGE
+		----------------------------------------
+		ENQUEUE ANY QUEUE
+		EXECUTE ANY ASSEMBLY
+		EXECUTE ANY CLASS
+		EXECUTE ANY EVALUATION CONTEXT
+		EXECUTE ANY INDEXTYPE
+		EXECUTE ANY LIBRARY
+		EXECUTE ANY OPERATOR
+		EXECUTE ANY PROCEDURE
+		EXECUTE ANY PROGRAM
+		EXECUTE ANY RULE
+		EXECUTE ANY RULE SET
+
+		PRIVILEGE
+		----------------------------------------
+		EXECUTE ANY TYPE
+		EXECUTE ASSEMBLY
+		EXEMPT ACCESS POLICY
+		EXEMPT REDACTION POLICY
+		EXPORT FULL DATABASE
+		FLASHBACK ANY TABLE
+		FLASHBACK ARCHIVE ADMINISTER
+		FORCE ANY TRANSACTION
+		FORCE TRANSACTION
+		GLOBAL QUERY REWRITE
+		GRANT ANY OBJECT PRIVILEGE
+
+		PRIVILEGE
+		----------------------------------------
+		GRANT ANY PRIVILEGE
+		GRANT ANY ROLE
+		IMPORT FULL DATABASE
+		INHERIT ANY PRIVILEGES
+		INSERT ANY CUBE DIMENSION
+		INSERT ANY MEASURE FOLDER
+		INSERT ANY TABLE
+		LOCK ANY TABLE
+		LOGMINING
+		MANAGE ANY FILE GROUP
+		MANAGE ANY QUEUE
+
+		PRIVILEGE
+		----------------------------------------
+		MANAGE FILE GROUP
+		MANAGE SCHEDULER
+		MANAGE TABLESPACE
+		MERGE ANY VIEW
+		ON COMMIT REFRESH
+		QUERY REWRITE
+		READ ANY FILE GROUP
+		READ ANY TABLE
+		REDEFINE ANY TABLE
+		RESTRICTED SESSION
+		RESUMABLE
+
+		PRIVILEGE
+		----------------------------------------
+		SELECT ANY CUBE
+		SELECT ANY CUBE BUILD PROCESS
+		SELECT ANY CUBE DIMENSION
+		SELECT ANY DICTIONARY
+		SELECT ANY MEASURE FOLDER
+		SELECT ANY MINING MODEL
+		SELECT ANY SEQUENCE
+		SELECT ANY TABLE
+		SELECT ANY TRANSACTION
+		SET CONTAINER
+		UNDER ANY TABLE
+
+		PRIVILEGE
+		----------------------------------------
+		UNDER ANY TYPE
+		UNDER ANY VIEW
+		UNLIMITED TABLESPACE
+		UPDATE ANY CUBE
+		UPDATE ANY CUBE BUILD PROCESS
+		UPDATE ANY CUBE DIMENSION
+		UPDATE ANY TABLE
+		USE ANY JOB RESOURCE
+		USE ANY SQL TRANSLATION PROFILE
+		
+
+-- System privileges granted to an user ( scott)
+
+SELECT * FROM DBA_SYS_PRIVS where grantee='BATCH8';
+
+-- Roles granted to an user ( scott)
+col grantee for a20;
+col GRANTED_ROLE for a20;
+SELECT * FROM DBA_ROLE_PRIVS where grantee='BATCH8';
+
+-- Object privileges granted to an user ( SCOTT)
+col owner for a20;
+col grantee for a20;
+col GRANTOR for a20;
+col table_name for a20;
+select GRANTEE,OWNER,TABLE_NAME,GRANTOR,PRIVILEGE from DBA_TAB_PRIVS WHERE GRANTEE='VENKY';
+
+-- Column specific privileges granted
+
+SELECT * FROM DBA_COL_PRIVS WHERE GRANTEE='BATCH8';
+
+-- Table privileges
+
+--GRANT READ ANY TABLE TO SCOTT;
+
+GRANT SELECT ANY TABLE TO SCOTT;
+
+GRANT INSERT, UPDATE, DELETE ON TESTUSER1.EMPTABL on SCOTT;
+GRANT ALL ON TESTUSER1.EMPTABL on SCOTT;
+
+-- Grant privilege on few columns of a table
+--Only INSERT,UPDATE can be granted at COLUMN level.
+
+--GRANT insert (emp_id) ON TESTUSER1.EMPTABL TO SCOTT;
+--GRANT UPDATE(emp_id) ON TESTUSER1.EMPTABL TO SCOTT;
+
+USER
+create user test identified by password default tablespace users  temporary tablespace temp;
+
+select dbms_metadata.get_ddl('USER', u.username) AS ddl from dba_users u where u.username = 'USER1';
+
+alter user user1 identified by values 'S:3C030687D5FB49EFF32112FA5462C3D4E97E52F50E4CCCA72E009D822998;T:FBB3287F269FC426D3490C05827070CA8D289068F62EA736A0C632A448BC1FC515D359633A4CF79FB37A2CC74072C40F0C479F70C63F588B1C24A0BF0296336B24E2FCD1CE89C590A6AFE31A25504734';
+
+
+
+
+
+
+
+Eg:
+
+create user SCOTT identified by oracle#41234
+default tablespace users
+temporary tablespace TEMP;
+
+-To create an user, which will prompt for new password upon login:
+
+		create user venky identified by oracle#41234
+		default tablespace users
+		temporary tablespace TEMP
+		account unlock 
+		profile APP_PROFILE
+		password expire;
+		
+		
+Minimum privilege required to connect to a database is create session
+grant create session to VENKY;
+
+-- Change password of a user
+
+		ALTER USER VENKY identified by VENKY;
+
+grant connect, resource to username;
+
+set lines 100 pages 200
+col name for a30
+col null? for a10
+col type for a15
+desc dba_users;
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ USERNAME					       NOT NULL VARCHAR2(128)
+ USER_ID					       NOT NULL NUMBER
+ PASSWORD							VARCHAR2(4000)
+ ACCOUNT_STATUS 				       NOT NULL VARCHAR2(32)
+ LOCK_DATE							DATE
+ EXPIRY_DATE							DATE
+ DEFAULT_TABLESPACE				       NOT NULL VARCHAR2(30)
+ TEMPORARY_TABLESPACE				       NOT NULL VARCHAR2(30)
+ LOCAL_TEMP_TABLESPACE						VARCHAR2(30)
+ CREATED					       NOT NULL DATE
+ PROFILE					       NOT NULL VARCHAR2(128)
+ INITIAL_RSRC_CONSUMER_GROUP					VARCHAR2(128)
+ EXTERNAL_NAME							VARCHAR2(4000)
+ PASSWORD_VERSIONS						VARCHAR2(17)
+ EDITIONS_ENABLED						VARCHAR2(1)
+ AUTHENTICATION_TYPE						VARCHAR2(8)
+ PROXY_ONLY_CONNECT						VARCHAR2(1)
+ COMMON 							VARCHAR2(3)
+ LAST_LOGIN							TIMESTAMP(9) WITH TIME ZONE
+ ORACLE_MAINTAINED						VARCHAR2(1)
+ INHERITED							VARCHAR2(3)
+ DEFAULT_COLLATION						VARCHAR2(100)
+ IMPLICIT							VARCHAR2(3)
+ ALL_SHARD							VARCHAR2(3)
+ PASSWORD_CHANGE_DATE						DATE
+
+
+
+select username from dba_users;
+
+USERNAME
+-----------------------
+TEST
+VENKY
+SCOTT
+SYS
+SYSTEM
+XS$NULL
+OJVMSYS
+LBACSYS
+OUTLN
+
+
+
+-- Change user profile;
+
+		ALTER USER VENKY PROFILE APP_PROFILE;
+ERROR:
+ORA-28000: The account is locked
+
+
+-- Unlock/lock a user
+		ALTER USER VENKY account unlock;
+
+
+
+After creating user and tried to login into username & you got error like 
+ORA-01045: user VENKY lacks CREATE SESSION privilege; logon denied
+then you should do the following below
+
+		grant create session to VENKY;
+and then try to login to scott User
+
+		
+		ALTER USER VENKY account lock;
+
+
+
+
+
+Make a user password expiry:
+When we make a user id expiry, then when the user does login, it will prompt him to set a new password. 
+		
+		ALTER USER VENKY password expire;
+		
+and try to login in other window, you will get the below error
+		ORA-28001: the password has expired
+		Changing password for scott
+now set password here and get login next
+
+-- Get default tablespace of a user:
+
+Changing default tablespace of a user:
+set lines 200
+col username for a23
+select username, DEFAULT_TABLESPACE from dba_users where username='VENKY';
+USERNAME		DEFAULT_TABLESPACE
+----------------------- ----------------------------------------
+VENKY			USERS
+
+create tablespace TS;
+alter user VENKY default tablespace TS;
+
+select username,default_tablespace from dba_users where username= 'VENKY';
+
+USERNAME		DEFAULT_TABLESPACE
+----------------------- ----------------------------------------
+VENKY			TS
+
+
+SET LINESIZE 200
+SELECT tablespace_name,
+       block_size,
+       extent_management,
+       segment_space_management,
+       status
+FROM   dba_tablespaces
+ORDER BY tablespace_name;
+TABLESPACE_NAME 	       BLOCK_SIZE EXTENT_MAN SEGMEN STATUS
+------------------------------ ---------- ---------- ------ ---------
+HRMS_TS 			     8192 LOCAL      AUTO   ONLINE
+SYSAUX				     8192 LOCAL      AUTO   ONLINE
+SYSTEM				     8192 LOCAL      MANUAL ONLINE
+TEMP				     8192 LOCAL      MANUAL ONLINE
+TEMP_NEW			     8192 LOCAL      MANUAL ONLINE
+TEMP_NEW_01			     8192 LOCAL      MANUAL ONLINE
+TS				     	 8192 LOCAL      AUTO   ONLINE
+UNDOTBS1			     8192 LOCAL      MANUAL ONLINE
+UNDOTBS_02			     8192 LOCAL      MANUAL ONLINE
+USERS				     8192 LOCAL      AUTO   ONLINE
+
+
+-- Change default tablespace of a user:
+
+		ALTER USER VENKY DEFAULT TABLESPACE HRMS_TS;
+
+select username,default_tablespace from dba_users where username= 'VENKY';
+USERNAME		DEFAULT_TABLESPACE
+----------------------- ----------------------------------------
+VENKY			HRMS_TS
+
+checking the user tablespace name
+SELECT default_tablespace FROM dba_users WHERE username='VENKY';
+DEFAULT_TABLESPACE
+----------------------------------------
+HRMS_TS
+
+Changing default TEMP tablespace of a user:
+check for temp tablespace
+select username,TEMPORARY_TABLESPACE from dba_users where username='VENKY';
+USERNAME		TEMPORARY_TABLESPACE
+----------------------- ------------------------------
+VENKY			TEMP
+
+check for temp tablespace and to change temp tablespace for User
+SELECT tablespace_name FROM dba_tablespaces WHERE contents = 'TEMPORARY';
+TABLESPACE_NAME
+------------------------------
+TEMP
+TEMP_NEW
+TEMP_NEW_01
+
+
+alter user VENKY temporary tablespace TEMP_NEW;
+select username,TEMPORARY_TABLESPACE from dba_users where username='VENKY';
+USERNAME		TEMPORARY_TABLESPACE
+----------------------- ------------------------------
+VENKY			TEMP_NEW
+
+-- Get the current tablespace quota information of an user
+		set lines 299
+		select TABLESPACE_NAME,BYTES/1024/1024 "UTILIZIED_SPACE" ,MAX_BYTES/1024/1024 "QUOTA_ALLOCATED" from dba_ts_quotas where username='VENKY';
+
+		TABLESPACE_NAME                                 UTILIZIED_SPACE                  QUOTA_ALLOCATED
+		------------------------------         ---------------------------        --------------------------
+		USERS                                           .0625                                    1024
+
+--- Change the tablespace quota for the user to 5G
+
+		ALTER USER SCOTT QUOTA 5G ON USERS;
+
+--- Grant unlimited tablespace quota:
+
+		ALTER USER SCOTT QUOTA UNLIMITED ON USERS;
+
+--- You can connect to another user without knowing the password, with grant connect through privilege
+--- Suppose a user TEST1 wants to connect to TEST2 user and create a table and we don’t know the password of TEST2.
+
+Conn / as sysdba
+		alter user TEST2 grant connect through TEST1;
+
+User altered.
+
+		conn TEST1[TEST2]
+		Enter password:< Give password for TEST1>
+
+		show user
+USER is "TEST2"
+		create table emp_test as select * from emp;
+
+Table created.
+
+		conn / as sysdba
+connected
+		select owner from dba_tables where table_name='EMP_TEST';
+
+		OWNER
+		------
+		TEST2
+
+
+--get all the privilages of the user.
+set lines 300;
+column PRIVILEGE for a30;
+column OBJ_OWNER for a15;
+column OBJ_NAME for a30;
+column USERNAME for a15;
+column GRANT_SOURCES for a15;
+column ADMIN_OR_GRANT_OPT for a5;
+column HIERARCHY_OPT for a5;
+
+SELECT
+    PRIVILEGE,
+    OBJ_OWNER,
+    OBJ_NAME,
+    USERNAME,
+    LISTAGG(GRANT_TARGET, ',') WITHIN GROUP (ORDER BY GRANT_TARGET) AS GRANT_SOURCES, -- Lists the sources of the permission
+    MAX(ADMIN_OR_GRANT_OPT) AS ADMIN_OR_GRANT_OPT, -- MAX acts as a Boolean OR by picking 'YES' over 'NO'
+    MAX(HIERARCHY_OPT) AS HIERARCHY_OPT -- MAX acts as a Boolean OR by picking 'YES' over 'NO'
+FROM (
+    -- Gets all roles a user has, even inherited ones
+    WITH ALL_ROLES_FOR_USER AS (
+        SELECT DISTINCT CONNECT_BY_ROOT GRANTEE AS GRANTED_USER, GRANTED_ROLE
+        FROM DBA_ROLE_PRIVS
+        CONNECT BY GRANTEE = PRIOR GRANTED_ROLE
+    )
+    SELECT
+        PRIVILEGE,
+        OBJ_OWNER,
+        OBJ_NAME,
+        USERNAME,
+        REPLACE(GRANT_TARGET, USERNAME, 'Direct to user') AS GRANT_TARGET,
+        ADMIN_OR_GRANT_OPT,
+        HIERARCHY_OPT
+    FROM (
+        -- System privileges granted directly to users
+        SELECT PRIVILEGE, NULL AS OBJ_OWNER, NULL AS OBJ_NAME, GRANTEE AS USERNAME, GRANTEE AS GRANT_TARGET, ADMIN_OPTION AS ADMIN_OR_GRANT_OPT, NULL AS HIERARCHY_OPT
+        FROM DBA_SYS_PRIVS
+        WHERE GRANTEE IN (SELECT USERNAME FROM DBA_USERS)
+        UNION ALL
+        -- System privileges granted users through roles
+        SELECT PRIVILEGE, NULL AS OBJ_OWNER, NULL AS OBJ_NAME, ALL_ROLES_FOR_USER.GRANTED_USER AS USERNAME, GRANTEE AS GRANT_TARGET, ADMIN_OPTION AS ADMIN_OR_GRANT_OPT, NULL AS HIERARCHY_OPT
+        FROM DBA_SYS_PRIVS
+        JOIN ALL_ROLES_FOR_USER ON ALL_ROLES_FOR_USER.GRANTED_ROLE = DBA_SYS_PRIVS.GRANTEE
+        UNION ALL
+        -- Object privileges granted directly to users
+        SELECT PRIVILEGE, OWNER AS OBJ_OWNER, TABLE_NAME AS OBJ_NAME, GRANTEE AS USERNAME, GRANTEE AS GRANT_TARGET, GRANTABLE, HIERARCHY
+        FROM DBA_TAB_PRIVS
+        WHERE GRANTEE IN (SELECT USERNAME FROM DBA_USERS)
+        UNION ALL
+        -- Object privileges granted users through roles
+        SELECT PRIVILEGE, OWNER AS OBJ_OWNER, TABLE_NAME AS OBJ_NAME, ALL_ROLES_FOR_USER.GRANTED_USER AS USERNAME, ALL_ROLES_FOR_USER.GRANTED_ROLE AS GRANT_TARGET, GRANTABLE, HIERARCHY
+        FROM DBA_TAB_PRIVS
+        JOIN ALL_ROLES_FOR_USER ON ALL_ROLES_FOR_USER.GRANTED_ROLE = DBA_TAB_PRIVS.GRANTEE
+    ) ALL_USER_PRIVS
+    -- Adjust your filter here
+    WHERE USERNAME = 'SCOTT'
+) DISTINCT_USER_PRIVS
+GROUP BY
+    PRIVILEGE,
+    OBJ_OWNER,
+    OBJ_NAME,
+    USERNAME
+;
+
+PRIVILEGE		       OBJ_OWNER       OBJ_NAME 		      USERNAME	      GRANT_SOURCES   ADMIN HIERA
+------------------------------ --------------- ------------------------------ --------------- --------------- ----- -----
+CREATE SESSION								      SCOTT	      Direct to user  NO
+SELECT ANY TABLE							      SCOTT	      Direct to user  NO
+
+
+
+
+
+*SESSION_PER_USER – No. of allowed concurrent sessions for a user
+*CPU_PER_SESSION – CPU time limit for a session, expressed in hundredth of seconds.
+*CPU_PER_CALL – Specify the CPU time limit for a call (a parse, execute, or fetch), expressed in hundredths of seconds.
+*CONNECT_TIME – Specify the total elapsed time limit for a session, expressed in minutes.
+*IDLE_TIME – Specify the permitted periods of continuous inactive time during a session, expressed in minutes.
+*LOGICAL_READS_PER_SESSION – Specify the permitted number of data blocks read in a session, including blocks read from memory and disk
+*LOGICAL_READS_PER_CALL –permitted number of data blocks read for a call to process a SQL statement (a parse, execute, or fetch).
+*PRIVATE_SGA – SGA a session can allocate in the shared pool of the system global area (SGA), expressed in bytes.
+
+*FAILED_LOGIN_ATTEMPTS – No. of failed attempts to log in to the user account before the account is locked
+*PASSWORD_LIFE_TIME: No. of days the account will be open. after that it will expiry.
+*PASSWORD_REUSE_TIME: number of days before which a password cannot be reused
+*PASSWORD_REUSE_MAX: number of days before which a password can be reused
+*PASSWORD_LOCK_TIME: Number of days the user account remains locked after failed login
+*PASSWORD_GRACE_TIME: Number of grace days for user to change password
+*PASSWORD_VERIFY_FUNCTION: PL/SQL that can be used for password verification
+
+
+
+
+Static and Dyanamic instances and sessions
+---
+		SELECT  name, case when issys_modifiable = 'FALSE' then 'STATIC_INSTANCE' when issys_modifiable =  'IMMEDIATE' then 'DYNAMIC_INSTANCE' end m_INSTANCE, case when isses_modifiable = 'FALSE' then 'STATIC_WRT_SESSION' when isses_modifiable = 'TRUE' then 'DYNAMIC_WRT_SESSION' end  m_SESSION  FROM V$parameter order by 1;
+		---
+		NAME										 M_INSTANCE					    M_SESSION
+		-------------------------------------------------------------------------------- -------------------------------------------------- --------------------------------------------------
+		DBFIPS_140									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		active_instance_count						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		adg_account_info_tracking					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		adg_redirect_dml							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		allow_global_dblinks						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		allow_group_access_to_sga					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		allow_rowid_column_type 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		approx_for_aggregation						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		approx_for_count_distinct					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		approx_for_percentile						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		aq_tm_processes 							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		archive_lag_target							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		asm_diskstring								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		asm_preferred_read_failure_groups			 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		audit_file_dest 															    STATIC_WRT_SESSION
+		audit_sys_operations						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		audit_syslog_level							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		audit_trail									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		autotask_max_active_pdbs					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		awr_pdb_autoflush_enabled					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		awr_pdb_max_parallel_slaves					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		awr_snapshot_time_offset					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		background_core_dump						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		background_dump_dest						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		backup_tape_io_slaves														    STATIC_WRT_SESSION
+		bitmap_merge_area_size						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		blank_trimming								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		buffer_pool_keep							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		buffer_pool_recycle							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cdb_cluster									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cdb_cluster_name							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cell_offload_compaction 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cell_offload_decryption 					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		cell_offload_parameters 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cell_offload_plan_display					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cell_offload_processing 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cell_offloadgroup_name						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		circuits									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		client_result_cache_lag 					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		client_result_cache_size					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		client_statistics_level 													    STATIC_WRT_SESSION
+		clonedb 									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		clonedb_dir									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cluster_database							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cluster_database_instances					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		cluster_interconnects						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		commit_logging								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		commit_point_strength						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		commit_wait									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		commit_write								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		common_user_prefix							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		compatible									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		connection_brokers							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		containers_parallel_degree					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		control_file_record_keep_time				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		control_files								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		control_management_pack_access				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		core_dump_dest								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		cpu_count									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		cpu_min_count								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		create_bitmap_area_size 					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		create_stored_outlines						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cursor_bind_capture_destination 			 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cursor_invalidation							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cursor_sharing								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		cursor_space_for_time						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		data_guard_max_io_time						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		data_guard_max_longio_time					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		data_guard_sync_latency 					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		data_transfer_cache_size					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_16k_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_2k_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_32k_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_4k_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_8k_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_big_table_cache_percent_target			 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_block_buffers							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_block_checking							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_block_checksum							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_block_size								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_cache_advice 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_cache_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_create_file_dest							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_create_online_log_dest_1					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_create_online_log_dest_2					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_create_online_log_dest_3					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_create_online_log_dest_4					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_create_online_log_dest_5					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_domain									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_file_multiblock_read_count				 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_file_name_convert						 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_files									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_flash_cache_file							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_flash_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_flashback_retention_target				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_index_compression_inheritance			 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_keep_cache_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_lost_write_protect						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_name 									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_performance_profile						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_recovery_file_dest						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_recovery_file_dest_size					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_recycle_cache_size						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		db_securefile								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_ultra_safe								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_unique_name								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		db_unrecoverable_scn_tracking				 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		db_writer_processes							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		dbwr_io_slaves								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		ddl_lock_timeout							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		default_sharing 							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		deferred_segment_creation					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		dg_broker_config_file1						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		dg_broker_config_file2						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		dg_broker_start 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		diagnostic_dest 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		disable_pdb_feature							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		disk_asynch_io								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		dispatchers									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		distributed_lock_timeout					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		dml_locks									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		dnfs_batch_size 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		dst_upgrade_insert_conv 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		enable_automatic_maintenance_pdb			 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		enable_ddl_logging							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		enable_dnfs_dispatcher						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		enable_goldengate_replication				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		enable_imc_with_mira						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		enable_pluggable_database					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		enabled_PDBs_on_standby 					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		encrypt_new_tablespaces 					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		event										 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		external_keystore_credential_location		 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		fal_client									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		fal_server									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		fast_start_io_target						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		fast_start_mttr_target						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		fast_start_parallel_rollback				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		file_mapping								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		fileio_network_adapters 					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		filesystemio_options						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		fixed_date									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		forward_listener							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		gcs_server_processes						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		global_names								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		global_txn_processes						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		hash_area_size								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		heat_map									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		hi_shared_memory_address					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		hs_autoregister 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		http_proxy									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		ifile										 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_adg_enabled						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_automatic_level					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_clause_default 					 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		inmemory_expressions_usage					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_force								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_max_populate_servers				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_optimized_arithmetic				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_prefer_xmem_memcompress			 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_prefer_xmem_priority				 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_query								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		inmemory_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_trickle_repopulate_servers_percent	 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_virtual_columns					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		inmemory_xmem_size							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_abort_delay_time					 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_groups 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_mode								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_name								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_number 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		instance_type								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		instant_restore 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		java_jit_enabled							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		java_max_sessionspace_size					 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		java_pool_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		java_restrict								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		java_soft_sessionspace_limit				 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		job_queue_processes							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		large_pool_size 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		ldap_directory_access						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		ldap_directory_sysauth						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		license_max_sessions						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		license_max_users								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		license_sessions_warning							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		listener_networks								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		lob_signature_enable								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		local_listener									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		lock_name_space 								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		lock_sga									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_config								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_dest								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_dest_1								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_10								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_11								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_12								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_13								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+
+		NAME										 M_INSTANCE					    M_SESSION
+		-------------------------------------------------------------------------------- -------------------------------------------------- --------------------------------------------------
+		log_archive_dest_14								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_15								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_16								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_17								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_18								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_19								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_2								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_20								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_21								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_22								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_23								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_24								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_25								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_26								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_27								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_28								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_29								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_3								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_30								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_31								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_4								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_5								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_6								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_7								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_8								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_9								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_1							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_10							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_11							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_12							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_13							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_14							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_15							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_16							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_17							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_18							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_19							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_2							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_20							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_21							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_22							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_23							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_24							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_25							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_26							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_27							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_28							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_29							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_3							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_30							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_31							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_4							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_5							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_6							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_7							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_8							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_dest_state_9							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_duplex_dest 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_format								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_max_processes							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_min_succeed_dest							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		log_archive_start								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		log_archive_trace								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_buffer									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		log_checkpoint_interval 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_checkpoint_timeout								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_checkpoints_to_alert							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		log_file_name_convert								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		long_module_action								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_datapump_jobs_per_pdb							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_datapump_parallel_per_job							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_dispatchers 								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_dump_file_size								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		max_idle_blocker_time								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_idle_time									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_iops									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_mbps									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_pdbs									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_shared_servers								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		max_string_size 								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		memoptimize_pool_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		memory_max_target								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		memory_target									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		multishard_query_data_consistency						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		multishard_query_partial_results						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_calendar									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_comp									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_currency									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_date_format 								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_date_language								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_dual_currency								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_iso_currency								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_language									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_length_semantics								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_nchar_conv_excp								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_numeric_characters								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_sort									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_territory									 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_time_format 								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_time_tz_format								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_timestamp_format								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		nls_timestamp_tz_format 							 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		noncdb_compatible								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		object_cache_max_size_percent													    DYNAMIC_WRT_SESSION
+		object_cache_optimal_size													    DYNAMIC_WRT_SESSION
+		ofs_threads									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		olap_page_pool_size														    DYNAMIC_WRT_SESSION
+		one_step_plugin_for_pdb_with_tde						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		open_cursors									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		open_links									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		open_links_per_instance 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		optimizer_adaptive_plans							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_adaptive_reporting_only						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_adaptive_statistics							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_capture_sql_plan_baselines						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_dynamic_sampling							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_features_enable							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_ignore_hints								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_ignore_parallel_hints 						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_index_caching 							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_index_cost_adj							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_inmemory_aware							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_mode									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_secure_view_merging							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		optimizer_use_invisible_indexes 						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_use_pending_statistics						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		optimizer_use_sql_plan_baselines						 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		os_authent_prefix								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		os_roles									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		outbound_dblink_protocols							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_adaptive_multi_user							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_degree_limit								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_degree_policy								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_execution_message_size 						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_force_local								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_instance_group 							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_max_servers								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_min_degree								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_min_percent								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_min_servers								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_min_time_threshold							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		parallel_servers_target 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		parallel_threads_per_cpu							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		pdb_file_name_convert								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		pdb_lockdown									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		pdb_os_credential								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		pdb_template									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		permit_92_wrap_format								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		pga_aggregate_limit								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		pga_aggregate_target								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		plscope_settings								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_ccflags									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_code_type 								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_debug									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_optimize_level								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_v2_compatibility								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		plsql_warnings									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		pre_page_sga									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		private_temp_table_prefix													    STATIC_WRT_SESSION
+		processes									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		processor_group_name								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		query_rewrite_enabled								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		query_rewrite_integrity 							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		rdbms_server_dn 								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		read_only_open_delayed								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		recovery_parallelism								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		recyclebin															    DYNAMIC_WRT_SESSION
+		redo_transport_user								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		remote_dependencies_mode							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		remote_listener 								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		remote_login_passwordfile							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		remote_os_authent								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		remote_os_roles 								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		remote_recovery_file_dest							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		replication_dependency_tracking 						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		resource_limit									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		resource_manage_goldengate							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		resource_manager_cpu_allocation 						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		resource_manager_plan								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		result_cache_max_result 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		result_cache_max_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		result_cache_mode								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		result_cache_remote_expiration							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		resumable_timeout								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		rollback_segments								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		scheduler_follow_pdbtz								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sec_case_sensitive_logon							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sec_max_failed_login_attempts							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		sec_protocol_error_further_action						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sec_protocol_error_trace_action 						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sec_return_server_release_banner						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		serial_reuse									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		service_names									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		session_cached_cursors														    DYNAMIC_WRT_SESSION
+		session_max_open_files								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		sessions									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sga_max_size									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+
+		NAME										 M_INSTANCE					    M_SESSION
+		-------------------------------------------------------------------------------- -------------------------------------------------- --------------------------------------------------
+		sga_min_size									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sga_target									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		shadow_core_dump								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		shared_memory_address								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		shared_pool_reserved_size							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		shared_pool_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		shared_server_sessions								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		shared_servers									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		shrd_dupl_table_refresh_rate							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		skip_unusable_indexes								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		smtp_out_server 								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		sort_area_retained_size 													    DYNAMIC_WRT_SESSION
+		sort_area_size															    DYNAMIC_WRT_SESSION
+		spatial_vector_acceleration							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		spfile										 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		sql92_security									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		sql_trace									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		sqltune_category								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		ssl_wallet									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		standby_db_preserve_states							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		standby_file_management 							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		standby_pdb_source_file_dblink							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		standby_pdb_source_file_directory						 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		star_transformation_enabled							 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		statistics_level								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		streams_pool_size								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		tape_asynch_io									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		target_pdbs									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		tde_configuration								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		temp_undo_enabled								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		thread										 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		threaded_execution								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		timed_os_statistics								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		timed_statistics								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		trace_enabled									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		tracefile_identifier								 STATIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		transactions									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		transactions_per_rollback_segment						 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		undo_management 								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		undo_retention									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		undo_tablespace 								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		unified_audit_common_systemlog							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		unified_audit_sga_queue_size							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		unified_audit_systemlog 							 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		uniform_log_timestamp_format							 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		use_dedicated_broker								 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		use_large_pages 								 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		user_dump_dest									 DYNAMIC_INSTANCE				    STATIC_WRT_SESSION
+		wallet_root									 STATIC_INSTANCE				    STATIC_WRT_SESSION
+		workarea_size_policy								 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+		xml_db_events									 DYNAMIC_INSTANCE				    DYNAMIC_WRT_SESSION
+
+445 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+20/11/2024 
+
+
+ creating user in sysdba
+ 
+SQL> create user pavan identified by pavan;
+
+User created.
+
+exiting from sysdba
+
+SQL> exit 
+
+logging with user pavan with PASSWORD
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+------ Unable to logging in because user has no session privilages
+ERROR:
+ORA-01045: user PAVAN lacks CREATE SESSION privilege; logon denied
+
+
+Enter user-name: 
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Enter user-name: 
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus
+
+[oracle@venky bin]$ 
+
+-------- Now go to sysdba and give connect & resource to user PAVAN
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+SQL> grant connect,resource to pavan;
+
+Grant succeeded.
+
+SQL> exit -----exiting from sysdba
+
+
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+and successfully connected with pavan User
+
+Trying to create table in pavan user 
+
+SQL> create table emp(empno number);
+
+Table created.
+
+Table created but, if you try to enter values cannot happen because
+
+SQL> insert into emp values(7788);
+insert into emp values(7788)
+            *
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'USERS'
+
+disconnecting from pavan user and connecting to sysdba
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+giving quota to pavan for giving table values
+
+SQL> alter user pavan quota unlimited on users;
+
+User altered.
+ exiting from sysdba and connecting to user PAVAN
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+SQL> insert into emp values(7788);
+
+1 row created.
+now insertion happen
+
+Trying to create tablespace in pavan User
+SQL> 
+SQL> 
+SQL> create tablespace hdfc datafile '/u01/app/oracle/oradata/datafile/hdfc_002.dbf' size 100m autoextend on;
+create tablespace hdfc datafile '/u01/app/oracle/oradata/datafile/hdfc_002.dbf' size 100m autoextend on
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+DISCONNECT user  and CONNECT to SYSDBA
+
+
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+giving Tablespace permission to User
+
+SQL> grant create tablespace to pavan;
+
+Grant succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+
+SQL> create tablespace hdfc datafile '/u01/app/oracle/oradata/hdfc_002.dbf' size 100m autoextend on;
+
+Tablespace created.
+
+SQL> 
+SQL> 
+SQL> exit
+
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+
+revoking tablespace privilages from PAVAN
+
+
+SQL> revoke create tablespace from pavan;
+
+Revoke succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+after revoking tablespace privilages back try now to create tablespace
+
+SQL> create tablespace hdfc1 datafile '/u01/app/oracle/oradata/hdfc_003.dbf' size 100m autoextend on;
+create tablespace hdfc1 datafile '/u01/app/oracle/oradata/hdfc_003.dbf' size 100m autoextend on
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+SQL> grant dba to pavan;
+
+Grant succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+SQL> create tablespace hdfc1 datafile '/u01/app/oracle/oradata/hdfc_003.dbf' size 100m autoextend on;
+
+Tablespace created.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+SQL> revoke dba from pavan;
+
+Revoke succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+SQL> create user shiva identified by shiva;
+create user shiva identified by shiva
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+SQL> grant create user to pavan;
+
+Grant succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> create user shiva identified by shiva;
+
+User created.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+
+SQL> revoke create user from pavan;
+
+Revoke succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+SQL> create user shiva2 identified by shiva2;
+create user shiva2 identified by shiva2
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+
+SQL> grant dba to pavan with admin option;
+
+Grant succeeded.
+
+SQL> exit
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+SQL> create user shiva2 identified by shiva2;
+
+User created.
+
+SQL> grant dba to shiva2 with admin option;
+
+Grant succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus shiva2/shiva2
+
+
+
+SQL> create user shiva3 identified by shiva3;
+
+User created.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus / as sysdba
+
+
+
+SQL> revoke dba from pavan;
+
+Revoke succeeded.
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus pavan/pavan
+
+
+
+SQL> create user shiva4 identified by shiva4;
+create user shiva4 identified by shiva4
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> exit
+
+[oracle@venky bin]$ sqlplus shiva2/shiva2
+
+
+
+SQL> exit       
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+[oracle@venky bin]$ 
