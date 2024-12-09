@@ -1,0 +1,3565 @@
+DEVDB 
+
+[oracle@oraclept ~]$ cd /u01
+[oracle@oraclept u01]$ ll
+total 4
+drwxrwxrwx. 4 oracle oinstall   40 Dec 26  2023 app
+drwxr-xr-x. 2 oracle oinstall   36 Dec 26  2023 datapump_dir
+drwxr-xr-x. 2 oracle oinstall    6 Dec  6 22:14 rman
+drwxr-xr-x. 2 oracle oinstall   67 Dec  7 21:11 rman_backup
+drwxr-xr-x. 2 oracle oinstall 4096 Dec  8 14:19 rman_bkp
+[oracle@oraclept u01]$ cd rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 2688904
+-rw-r-----. 1 oracle oinstall   76695040 Dec  8 14:19 1s3c62qm_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  8 14:19 1t3c62qm_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  8 14:19 1u3c62qo_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  8 14:19 1v3c62qo_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  8 14:19 203c62qp_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  8 14:19 213c62qp_1_1
+-rw-r-----. 1 oracle oinstall    4379136 Dec  8 14:19 223c62qq_1_1
+-rw-r-----. 1 oracle oinstall 1323941888 Dec  8 14:19 233c62qs_1_1
+-rw-r-----. 1 oracle oinstall 1128824832 Dec  8 14:19 243c62qs_1_1
+-rw-r-----. 1 oracle oinstall       8704 Dec  8 14:19 253c62rb_1_1
+-rw-r-----. 1 oracle oinstall   10715136 Dec  6 22:16 c-896617639-20241206-08
+-rw-r-----. 1 oracle oinstall   11010048 Dec  7 14:16 c-896617639-20241207-02
+-rw-r-----. 1 oracle oinstall   11010048 Dec  7 21:00 c-896617639-20241207-05
+-rw-r-----. 1 oracle oinstall   11206656 Dec  7 21:08 c-896617639-20241207-06
+-rw-r-----. 1 oracle oinstall   11206656 Dec  8 14:19 c-896617639-20241208-02
+-rw-r-----. 1 oracle oinstall   11091968 Dec  8 14:19 snapcf_DB.f
+[oracle@oraclept rman_bkp]$ rm *
+[oracle@oraclept rman_bkp]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 11:06:16 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: PRODDB (DBID=896617639)
+
+RMAN> crosscheck backup
+2> ;
+
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=110 device type=DISK
+allocated channel: ORA_DISK_2
+channel ORA_DISK_2: SID=111 device type=DISK
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/1s3c62qm_1_1 RECID=44 STAMP=1187187542
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/1t3c62qm_1_1 RECID=43 STAMP=1187187543
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/1u3c62qo_1_1 RECID=45 STAMP=1187187544
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/1v3c62qo_1_1 RECID=46 STAMP=1187187544
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/203c62qp_1_1 RECID=47 STAMP=1187187545
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/213c62qp_1_1 RECID=48 STAMP=1187187545
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/223c62qq_1_1 RECID=49 STAMP=1187187546
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/243c62qs_1_1 RECID=50 STAMP=1187187548
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/233c62qs_1_1 RECID=51 STAMP=1187187548
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/253c62rb_1_1 RECID=52 STAMP=1187187563
+Crosschecked 5 objects
+
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=/u01/rman_bkp/c-896617639-20241208-02 RECID=53 STAMP=1187187565
+Crosschecked 6 objects
+
+
+RMAN> delete expired backup;
+
+using channel ORA_DISK_1
+using channel ORA_DISK_2
+
+List of Backup Pieces
+BP Key  BS Key  Pc# Cp# Status      Device Type Piece Name
+------- ------- --- --- ----------- ----------- ----------
+43      43      1   1   EXPIRED     DISK        /u01/rman_bkp/1t3c62qm_1_1
+44      44      1   1   EXPIRED     DISK        /u01/rman_bkp/1s3c62qm_1_1
+45      45      1   1   EXPIRED     DISK        /u01/rman_bkp/1u3c62qo_1_1
+46      46      1   1   EXPIRED     DISK        /u01/rman_bkp/1v3c62qo_1_1
+47      47      1   1   EXPIRED     DISK        /u01/rman_bkp/203c62qp_1_1
+48      48      1   1   EXPIRED     DISK        /u01/rman_bkp/213c62qp_1_1
+49      49      1   1   EXPIRED     DISK        /u01/rman_bkp/223c62qq_1_1
+50      50      1   1   EXPIRED     DISK        /u01/rman_bkp/243c62qs_1_1
+51      51      1   1   EXPIRED     DISK        /u01/rman_bkp/233c62qs_1_1
+52      52      1   1   EXPIRED     DISK        /u01/rman_bkp/253c62rb_1_1
+53      53      1   1   EXPIRED     DISK        /u01/rman_bkp/c-896617639-20241208-02
+
+Do you really want to delete the above objects (enter YES or NO)? yes
+deleted backup piece
+backup piece handle=/u01/rman_bkp/1t3c62qm_1_1 RECID=43 STAMP=1187187543
+deleted backup piece
+backup piece handle=/u01/rman_bkp/1s3c62qm_1_1 RECID=44 STAMP=1187187542
+deleted backup piece
+backup piece handle=/u01/rman_bkp/1u3c62qo_1_1 RECID=45 STAMP=1187187544
+deleted backup piece
+backup piece handle=/u01/rman_bkp/1v3c62qo_1_1 RECID=46 STAMP=1187187544
+deleted backup piece
+backup piece handle=/u01/rman_bkp/203c62qp_1_1 RECID=47 STAMP=1187187545
+deleted backup piece
+backup piece handle=/u01/rman_bkp/213c62qp_1_1 RECID=48 STAMP=1187187545
+deleted backup piece
+backup piece handle=/u01/rman_bkp/223c62qq_1_1 RECID=49 STAMP=1187187546
+deleted backup piece
+backup piece handle=/u01/rman_bkp/243c62qs_1_1 RECID=50 STAMP=1187187548
+deleted backup piece
+backup piece handle=/u01/rman_bkp/233c62qs_1_1 RECID=51 STAMP=1187187548
+deleted backup piece
+backup piece handle=/u01/rman_bkp/253c62rb_1_1 RECID=52 STAMP=1187187563
+Deleted 5 EXPIRED objects
+
+deleted backup piece
+backup piece handle=/u01/rman_bkp/c-896617639-20241208-02 RECID=53 STAMP=1187187565
+Deleted 6 EXPIRED objects
+
+
+RMAN> crosscheck archivelog all;
+
+released channel: ORA_DISK_1
+released channel: ORA_DISK_2
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=110 device type=DISK
+allocated channel: ORA_DISK_2
+channel ORA_DISK_2: SID=111 device type=DISK
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_1_mo67byrd_.arc RECID=2 STAMP=1187040054
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_23_mo61w7mb_.arc RECID=1 STAMP=1187035341
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_2_mo68cydz_.arc RECID=3 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_3_mo68dgr0_.arc RECID=4 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_4_mo68dlmz_.arc RECID=5 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_5_mo68dloz_.arc RECID=6 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_6_mo68dr8x_.arc RECID=7 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_7_mo68drgs_.arc RECID=8 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_8_mo68dvcg_.arc RECID=9 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_9_mo68dvjf_.arc RECID=10 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_10_mo68dyft_.arc RECID=11 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_11_mo68dylj_.arc RECID=12 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_12_mo68f4jk_.arc RECID=13 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_13_mo68f7mw_.arc RECID=14 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_14_mo68f8o1_.arc RECID=15 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_15_mo68fbmo_.arc RECID=16 STAMP=1187041891
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_1_mo6cqjop_.arc RECID=17 STAMP=1187044774
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_2_mo6cqkqc_.arc RECID=18 STAMP=1187044774
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_3_mo6cqncy_.arc RECID=19 STAMP=1187044774
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_4_mo6cqnjp_.arc RECID=20 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_5_mo6cqt8m_.arc RECID=21 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_6_mo6cqtgc_.arc RECID=22 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_7_mo6cqxc2_.arc RECID=23 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_8_mo6cqxhv_.arc RECID=24 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_9_mo6cr0fq_.arc RECID=25 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_10_mo6cr0mm_.arc RECID=26 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_1_mo7djpm9_.arc RECID=28 STAMP=1187078126
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_06/o1_mf_1_11_mo6cr3gt_.arc RECID=27 STAMP=1187044775
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_2_mo7f06ks_.arc RECID=29 STAMP=1187078622
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_3_mo7f15pd_.arc RECID=30 STAMP=1187078653
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_4_mo7jgff4_.arc RECID=31 STAMP=1187082149
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_5_mo82hnpr_.arc RECID=32 STAMP=1187100620
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_6_mo83pr61_.arc RECID=33 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_7_mo83pt3w_.arc RECID=34 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_8_mo84763h_.arc RECID=35 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_9_mo84o8hx_.arc RECID=36 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_10_mo84om9c_.arc RECID=37 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_12_mo88cb19_.arc RECID=49 STAMP=1187106626
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_11_mo855qto_.arc RECID=38 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_12_mo85lyhz_.arc RECID=39 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_13_mo88c9s0_.arc RECID=47 STAMP=1187106625
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_13_mo85v8h7_.arc RECID=40 STAMP=1187106586
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_14_mo88c9w4_.arc RECID=48 STAMP=1187106625
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_1_mo8ooo3d_.arc RECID=50 STAMP=1187120270
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_2_mo8pnvw9_.arc RECID=51 STAMP=1187121267
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_3_mo8pos5l_.arc RECID=52 STAMP=1187121297
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_4_mo8pvz69_.arc RECID=53 STAMP=1187121495
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_5_mo8tfoz2_.arc RECID=54 STAMP=1187125134
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_07/o1_mf_1_6_mo8trr8l_.arc RECID=55 STAMP=1187125667
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_1_mob4owbg_.arc RECID=56 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_2_mob58p5d_.arc RECID=57 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_3_mob58rqk_.arc RECID=58 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_4_mob58vsm_.arc RECID=59 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_5_mob59ct8_.arc RECID=60 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_6_mob59f34_.arc RECID=61 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_7_mob59hht_.arc RECID=62 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_8_mob5c1od_.arc RECID=63 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_9_mob5c370_.arc RECID=64 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_10_mob5c4fh_.arc RECID=65 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_11_mob5n4wf_.arc RECID=75 STAMP=1187169372
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_11_mob5c4m2_.arc RECID=66 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_12_mob5n511_.arc RECID=76 STAMP=1187169373
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_12_mob5c8vd_.arc RECID=67 STAMP=1187169342
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_13_mob5n4ox_.arc RECID=74 STAMP=1187169372
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_1_mob5t7nr_.arc RECID=77 STAMP=1187169567
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_3_mobqcyfq_.arc RECID=79 STAMP=1187187542
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_2_mobq6j41_.arc RECID=78 STAMP=1187187368
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_08/o1_mf_1_4_mobqdmps_.arc RECID=80 STAMP=1187187563
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_09/o1_mf_1_5_modlkbcp_.arc RECID=81 STAMP=1187248130
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_09/o1_mf_1_6_modzdm2l_.arc RECID=82 STAMP=1187261292
+Crosschecked 35 objects
+
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/PRODDB/archivelog/2024_12_09/o1_mf_1_7_modzy7gr_.arc RECID=83 STAMP=1187261855
+Crosschecked 36 objects
+
+
+RMAN> delete expired archivelog all;
+
+released channel: ORA_DISK_1
+released channel: ORA_DISK_2
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=110 device type=DISK
+allocated channel: ORA_DISK_2
+channel ORA_DISK_2: SID=111 device type=DISK
+specification does not match any archived log in the repository
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept rman_bkp]$ l
+bash: l: command not found...
+[oracle@oraclept rman_bkp]$ ll
+total 0
+[oracle@oraclept rman_bkp]$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.111  netmask 255.255.255.0  broadcast 192.168.0.255
+        inet6 fe80::7565:d1c7:b8c8:873f  prefixlen 64  scopeid 0x20<link>
+        inet6 fe80::23c4:b6a0:f751:c5d6  prefixlen 64  scopeid 0x20<link>
+        inet6 fe80::7c8e:6082:12e7:5902  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:55:8a:b8  txqueuelen 1000  (Ethernet)
+        RX packets 4959  bytes 2615881 (2.4 MiB)
+        RX errors 8  dropped 0  overruns 0  frame 0
+        TX packets 2563  bytes 214066 (209.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 19  base 0xd020  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 399  bytes 31280 (30.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 399  bytes 31280 (30.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:07:39:e9  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[oracle@oraclept rman_bkp]$ cd $ORACLE_HOME/dbs
+[oracle@oraclept dbs]$ ll
+total 10376
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r--r--. 1 oracle oinstall     1158 Jan  1  2024 initproddb.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     2048 Dec 26  2023 orapwproddb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 10:57 spfileproddb.ora
+[oracle@oraclept dbs]$ ll
+total 10376
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r--r--. 1 oracle oinstall     1158 Dec  9 11:08 initproddb.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwproddb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 10:57 spfileproddb.ora
+[oracle@oraclept dbs]$ cd
+
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 140372
+-rw-r-----. 1 oracle oinstall 76695040 Dec  9 11:10 273c8bq7_1_1
+-rw-r-----. 1 oracle oinstall 54820864 Dec  9 11:10 283c8bq7_1_1
+[oracle@oraclept rman_bkp]$ cd
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd $ORACLE_HOME/dbs
+[oracle@oraclept dbs]$ ll
+total 10376
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r--r--. 1 oracle oinstall     1158 Dec  9 11:08 initproddb.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwproddb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 10:57 spfileproddb.ora
+[oracle@oraclept dbs]$ vi initproddb.ora
+[oracle@oraclept dbs]$ ll
+total 10376
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r--r--. 1 oracle oinstall     1140 Dec  9 11:15 initproddb.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwproddb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 10:57 spfileproddb.ora
+[oracle@oraclept dbs]$ mv initproddb.ora initdevdb.ora
+[oracle@oraclept dbs]$ mv orapwproddb orapwdevdb
+[oracle@oraclept dbs]$ ll
+total 10376
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rw-r--r--. 1 oracle oinstall     1140 Dec  9 11:15 initdevdb.ora
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwdevdb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 10:57 spfileproddb.ora
+[oracle@oraclept dbs]$ rm spfileproddb.ora
+[oracle@oraclept dbs]$ ll
+total 10372
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rw-r--r--. 1 oracle oinstall     1140 Dec  9 11:15 initdevdb.ora
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwdevdb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+[oracle@oraclept dbs]$ cd
+[oracle@oraclept ~]$ 
+
+[oracle@oraclept ~]$ 
+
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 2067748
+-rw-r-----. 1 oracle oinstall   76695040 Dec  9 11:10 273c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  9 11:10 283c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  9 11:11 293c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  9 11:11 2a3c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   22590464 Dec  9 11:11 2b3c8bq9_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  9 11:11 2c3c8bqa_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  9 11:11 2d3c8bqb_1_1
+-rw-r-----. 1 oracle oinstall 1327947776 Dec  9 11:15 2e3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall  515915776 Dec  9 11:17 2f3c8bqc_1_1
+[oracle@oraclept rman_bkp]$ cd 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ ls -lrtah
+total 324M
+-rw-r--r--.  1 oracle oinstall 323M Feb 16  2019 soe.dmp
+-rw-r--r--.  1 oracle oinstall  231 Nov 22  2019 .bashrc
+-rw-r--r--.  1 oracle oinstall   18 Nov 22  2019 .bash_logout
+drwxr-xr-x.  4 oracle oinstall   39 Dec 26  2023 .mozilla
+drwxr-xr-x.  4 root   root       34 Dec 26  2023 ..
+drwxr-xr-x.  3 oracle oinstall   19 Dec 26  2023 .java
+drwxr-x---.  2 oracle oinstall   40 Dec 26  2023 .oracle_jre_usage
+drwx------.  3 oracle oinstall   25 Dec 26  2023 .dbus
+drwx------.  3 oracle oinstall   19 Dec 26  2023 .local
+-rw-------.  1 oracle oinstall   16 Dec 26  2023 .esd_auth
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Templates
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Public
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Music
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Downloads
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Documents
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Desktop
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Videos
+drwxr-xr-x.  2 oracle oinstall    6 Dec 26  2023 Pictures
+drwxr-xr-x. 14 oracle oinstall 4.0K Dec 26  2023 .config
+-rw-r--r--.  1 oracle oinstall   65 Dec 26  2023 flush.sql
+drwxr-----.  3 oracle oinstall   18 Jan  1  2024 oradiag_oracle
+drwxr-xr-x. 15 oracle oinstall 4.0K Jan  2  2024 .cache
+-rw-------.  1 oracle oinstall  116 Jan  3  2024 .Xauthority
+-rw-r--r--.  1 oracle oinstall  701 Jan  6  2024 .bash_profile
+-rw-------.  1 oracle oinstall 2.6K Dec  7 19:53 .bash_history
+drwx------.  2 oracle oinstall   25 Dec  7 21:14 .ssh
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-clipboard-tty1-control.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-clipboard-tty1-service.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-seamless-tty1-control.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-seamless-tty1-service.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-draganddrop-tty1-control.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-vmsvga-session-tty1-control.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-draganddrop-tty1-service.pid
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:57 .vboxclient-vmsvga-session-tty1-service.pid
+-rw-------.  1 oracle oinstall 8.8K Dec  9 10:57 .ICEauthority
+-rw-r-----.  1 oracle oinstall    5 Dec  9 10:58 .vboxclient-hostversion-tty1-control.pid
+-rw-------.  1 oracle oinstall 6.9K Dec  9 11:15 .viminfo
+drwx------. 19 oracle oinstall 4.0K Dec  9 11:15 .
+[oracle@oraclept ~]$ vi .bash_profile
+[oracle@oraclept ~]$ source .bash_profile
+[oracle@oraclept ~]$ env |grep ORA
+ORACLE_SID=devdb
+ORACLE_BASE=/u01/app/oracle
+ORACLE_TERM=xterm
+ORACLE_HOME=/u01/app/oracle/product/19.0.0.0/dbhome_1
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Dec 9 11:19:34 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> create spfile from pfile;
+
+File created.
+
+SQL> startup nomount;
+
+
+
+ORA-09925: Unable to create audit trail file
+Linux-x86_64 Error: 2: No such file or directory
+Additional information: 9925
+SQL> SQL> SQL> SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> exit
+Disconnected
+[oracle@oraclept ~]$ cd $ORACLE_HOME/dbs
+[oracle@oraclept dbs]$ ll
+total 10380
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 11:20 hc_devdb.dat
+-rw-rw----. 1 oracle oinstall     1544 Dec  9 10:57 hc_proddb.dat
+-rw-r--r--. 1 oracle oinstall     1140 Dec  9 11:15 initdevdb.ora
+-rwxrwxrwx. 1 oracle oinstall     3079 May 14  2015 init.ora
+-rw-r-----. 1 oracle oinstall       24 Dec 26  2023 lkPRODDB
+-rw-r-----. 1 oracle oinstall     1158 Dec  9 11:08 orapwdevdb
+-rw-r-----. 1 oracle oinstall 10600448 Dec  6 19:41 snapcf_proddb.f
+-rw-r-----. 1 oracle oinstall     3584 Dec  9 11:19 spfiledevdb.ora
+[oracle@oraclept dbs]$ vi initdevdb.ora
+[oracle@oraclept dbs]$ cd
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Dec 9 11:22:06 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup nomount;
+ORACLE instance started.
+
+Total System Global Area 1258290752 bytes
+Fixed Size		    8896064 bytes
+Variable Size		  553648128 bytes
+Database Buffers	  687865856 bytes
+Redo Buffers		    7880704 bytes
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+[oracle@oraclept ~]$ rman auxiliary /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 11:22:48 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to auxiliary database: DEVDB (not mounted)
+
+RMAN> duplicate database to devdb backup location '/u01/rman_bkp' nofilenamecheck;
+
+Starting Duplicate Db at 09-DEC-2024 11:23:32
+searching for database ID
+found backup of database ID 896617639
+
+contents of Memory Script:
+{
+   sql clone "alter system set  control_files = 
+  ''/u01/app/oracle/oradata/DEVDB/controlfile/o1_mf_lrn5lhl8_.ctl'', ''/u01/app/oracle/fast_recovery_area/DEVDB/controlfile/o1_mf_lrn5lhlr_.ctl'' comment=
+ ''Set by RMAN'' scope=spfile";
+   sql clone "alter system set  db_name = 
+ ''PRODDB'' comment=
+ ''Modified by RMAN duplicate'' scope=spfile";
+   sql clone "alter system set  db_unique_name = 
+ ''devdb'' comment=
+ ''Modified by RMAN duplicate'' scope=spfile";
+   shutdown clone immediate;
+   startup clone force nomount
+   restore clone primary controlfile from  '/u01/rman_bkp/c-896617639-20241209-00';
+   alter clone database mount;
+}
+executing Memory Script
+
+sql statement: alter system set  control_files =   ''/u01/app/oracle/oradata/DEVDB/controlfile/o1_mf_lrn5lhl8_.ctl'', ''/u01/app/oracle/fast_recovery_area/DEVDB/controlfile/o1_mf_lrn5lhlr_.ctl'' comment= ''Set by RMAN'' scope=spfile
+
+sql statement: alter system set  db_name =  ''PRODDB'' comment= ''Modified by RMAN duplicate'' scope=spfile
+
+sql statement: alter system set  db_unique_name =  ''devdb'' comment= ''Modified by RMAN duplicate'' scope=spfile
+
+Oracle instance shut down
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                553648128 bytes
+Database Buffers             687865856 bytes
+Redo Buffers                   7880704 bytes
+
+Starting restore at 09-DEC-2024 11:24:12
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=35 device type=DISK
+
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/app/oracle/oradata/DEVDB/controlfile/o1_mf_lrn5lhl8_.ctl
+output file name=/u01/app/oracle/fast_recovery_area/DEVDB/controlfile/o1_mf_lrn5lhlr_.ctl
+Finished restore at 09-DEC-2024 11:24:15
+
+database mounted
+released channel: ORA_AUX_DISK_1
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=35 device type=DISK
+allocated channel: ORA_AUX_DISK_2
+channel ORA_AUX_DISK_2: SID=39 device type=DISK
+duplicating Online logs to Oracle Managed File (OMF) location
+duplicating Datafiles to Oracle Managed File (OMF) location
+datafile 8 not processed because file is offline
+
+contents of Memory Script:
+{
+   set until scn  6012128;
+   set newname for clone datafile  1 to new;
+   set newname for clone datafile  2 to new;
+   set newname for clone datafile  3 to new;
+   set newname for clone datafile  4 to new;
+   set newname for clone datafile  5 to new;
+   set newname for clone datafile  7 to new;
+   restore
+   clone database
+   skip forever tablespace  "HRMS_TS"   ;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+Starting restore at 09-DEC-2024 11:24:21
+using channel ORA_AUX_DISK_1
+using channel ORA_AUX_DISK_2
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00007 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkp/2e3c8bqc_1_1
+channel ORA_AUX_DISK_2: starting datafile backup set restore
+channel ORA_AUX_DISK_2: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_2: restoring datafile 00002 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_%u_.dbf
+channel ORA_AUX_DISK_2: restoring datafile 00004 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_2: restoring datafile 00005 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_%u_.dbf
+channel ORA_AUX_DISK_2: reading from backup piece /u01/rman_bkp/2f3c8bqc_1_1
+channel ORA_AUX_DISK_2: piece handle=/u01/rman_bkp/2f3c8bqc_1_1 tag=TAG20241209T110444
+channel ORA_AUX_DISK_2: restored backup piece 1
+channel ORA_AUX_DISK_2: restore complete, elapsed time: 00:00:07
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkp/2e3c8bqc_1_1 tag=TAG20241209T110444
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:15
+Finished restore at 09-DEC-2024 11:24:36
+
+contents of Memory Script:
+{
+   switch clone datafile all;
+}
+executing Memory Script
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=8 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf
+datafile 2 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+datafile 5 switched to datafile copy
+input datafile copy RECID=12 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+datafile 7 switched to datafile copy
+input datafile copy RECID=13 STAMP=1187263477 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+
+contents of Memory Script:
+{
+   set until scn  6012128;
+   recover
+   clone database
+   skip forever tablespace  "HRMS_TS"    delete archivelog
+   ;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting recover at 09-DEC-2024 11:24:37
+using channel ORA_AUX_DISK_1
+using channel ORA_AUX_DISK_2
+
+Executing: alter database datafile 8 offline drop
+starting media recovery
+
+channel ORA_AUX_DISK_1: starting archived log restore to default destination
+channel ORA_AUX_DISK_1: restoring archived log
+archived log thread=1 sequence=9
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkp/2g3c8bqs_1_1
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkp/2g3c8bqs_1_1 tag=TAG20241209T110500
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_9_mof1jyh0_.arc thread=1 sequence=9
+channel clone_default: deleting archived log(s)
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_9_mof1jyh0_.arc RECID=1 STAMP=1187263478
+media recovery complete, elapsed time: 00:00:00
+Finished recover at 09-DEC-2024 11:24:39
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                553648128 bytes
+Database Buffers             687865856 bytes
+Redo Buffers                   7880704 bytes
+
+contents of Memory Script:
+{
+   sql clone "alter system set  db_name = 
+ ''DEVDB'' comment=
+ ''Reset to original value by RMAN'' scope=spfile";
+   sql clone "alter system reset  db_unique_name scope=spfile";
+}
+executing Memory Script
+
+sql statement: alter system set  db_name =  ''DEVDB'' comment= ''Reset to original value by RMAN'' scope=spfile
+
+sql statement: alter system reset  db_unique_name scope=spfile
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                553648128 bytes
+Database Buffers             687865856 bytes
+Redo Buffers                   7880704 bytes
+sql statement: CREATE CONTROLFILE REUSE SET DATABASE "DEVDB" RESETLOGS ARCHIVELOG 
+  MAXLOGFILES     16
+  MAXLOGMEMBERS      3
+  MAXDATAFILES      100
+  MAXINSTANCES     8
+  MAXLOGHISTORY      292
+ LOGFILE
+  GROUP     1  SIZE 200 M ,
+  GROUP     2  SIZE 200 M ,
+  GROUP     3  SIZE 200 M 
+ DATAFILE
+  '/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf'
+ CHARACTER SET AL32UTF8
+
+
+contents of Memory Script:
+{
+   set newname for clone tempfile  1 to new;
+   switch clone tempfile all;
+   catalog clone datafilecopy  "/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf", 
+ "/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf", 
+ "/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf", 
+ "/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf", 
+ "/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf";
+   switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/app/oracle/oradata/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+cataloged datafile copy
+datafile copy file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf RECID=1 STAMP=1187263508
+cataloged datafile copy
+datafile copy file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf RECID=2 STAMP=1187263508
+cataloged datafile copy
+datafile copy file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf RECID=3 STAMP=1187263508
+cataloged datafile copy
+datafile copy file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf RECID=4 STAMP=1187263508
+cataloged datafile copy
+datafile copy file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf RECID=5 STAMP=1187263508
+
+datafile 2 switched to datafile copy
+input datafile copy RECID=1 STAMP=1187263508 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=2 STAMP=1187263508 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=3 STAMP=1187263508 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+datafile 5 switched to datafile copy
+input datafile copy RECID=4 STAMP=1187263508 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+datafile 7 switched to datafile copy
+input datafile copy RECID=5 STAMP=1187263508 file name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+
+contents of Memory Script:
+{
+   Alter clone database open resetlogs;
+}
+executing Memory Script
+
+database opened
+Dropping offline and skipped tablespaces
+Executing: drop tablespace "HRMS_TS" including contents cascade constraints
+Finished Duplicate Db at 09-DEC-2024 11:25:23
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Dec 9 11:25:33 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select open_mode,name from v$database;
+
+OPEN_MODE	     NAME
+-------------------- ---------
+READ WRITE	     DEVDB
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> desc dba_tablespaces
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLESPACE_NAME			   NOT NULL VARCHAR2(30)
+ BLOCK_SIZE				   NOT NULL NUMBER
+ INITIAL_EXTENT 				    NUMBER
+ NEXT_EXTENT					    NUMBER
+ MIN_EXTENTS				   NOT NULL NUMBER
+ MAX_EXTENTS					    NUMBER
+ MAX_SIZE					    NUMBER
+ PCT_INCREASE					    NUMBER
+ MIN_EXTLEN					    NUMBER
+ STATUS 					    VARCHAR2(9)
+ CONTENTS					    VARCHAR2(21)
+ LOGGING					    VARCHAR2(9)
+ FORCE_LOGGING					    VARCHAR2(3)
+ EXTENT_MANAGEMENT				    VARCHAR2(10)
+ ALLOCATION_TYPE				    VARCHAR2(9)
+ PLUGGED_IN					    VARCHAR2(3)
+ SEGMENT_SPACE_MANAGEMENT			    VARCHAR2(6)
+ DEF_TAB_COMPRESSION				    VARCHAR2(8)
+ RETENTION					    VARCHAR2(11)
+ BIGFILE					    VARCHAR2(3)
+ PREDICATE_EVALUATION				    VARCHAR2(7)
+ ENCRYPTED					    VARCHAR2(3)
+ COMPRESS_FOR					    VARCHAR2(30)
+ DEF_INMEMORY					    VARCHAR2(8)
+ DEF_INMEMORY_PRIORITY				    VARCHAR2(8)
+ DEF_INMEMORY_DISTRIBUTE			    VARCHAR2(15)
+ DEF_INMEMORY_COMPRESSION			    VARCHAR2(17)
+ DEF_INMEMORY_DUPLICATE 			    VARCHAR2(13)
+ SHARED 					    VARCHAR2(13)
+ DEF_INDEX_COMPRESSION				    VARCHAR2(8)
+ INDEX_COMPRESS_FOR				    VARCHAR2(13)
+ DEF_CELLMEMORY 				    VARCHAR2(14)
+ DEF_INMEMORY_SERVICE				    VARCHAR2(12)
+ DEF_INMEMORY_SERVICE_NAME			    VARCHAR2(1000)
+ LOST_WRITE_PROTECT				    VARCHAR2(7)
+ CHUNK_TABLESPACE				    VARCHAR2(1)
+
+SQL> select TABLESPACE_NAME from dba_tablespaces;
+
+TABLESPACE_NAME
+------------------------------
+SYSTEM
+SYSAUX
+UNDOTBS1
+TEMP
+USERS
+SOETBS
+VENKYTS
+
+7 rows selected.
+
+SQL> alter tablespace VENKYTS offline;
+
+Tablespace altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> create user venky default tablespace VENKYTS;
+create user venky default tablespace VENKYTS
+            *
+ERROR at line 1:
+ORA-01920: user name 'VENKY' conflicts with another user or role name
+
+
+SQL> create user venky_1 default tablespace VENKYTS;
+
+User created.
+
+SQL>       
+SQL> 
+SQL> 
+SQL> grant connect,resource to venky_1;
+
+Grant succeeded.
+
+SQL> alter user venky_1 quota unlimited on VENKYTS;
+
+User altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> create table emp(empno number);
+
+Table created.
+
+SQL> insert into emp values(7788);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> alter tablespace VENKYTS online;
+
+Tablespace altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> desc dba_tablespace
+ERROR:
+ORA-04043: object dba_tablespace does not exist
+
+
+SQL>  desc dba_tablespaces
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLESPACE_NAME			   NOT NULL VARCHAR2(30)
+ BLOCK_SIZE				   NOT NULL NUMBER
+ INITIAL_EXTENT 				    NUMBER
+ NEXT_EXTENT					    NUMBER
+ MIN_EXTENTS				   NOT NULL NUMBER
+ MAX_EXTENTS					    NUMBER
+ MAX_SIZE					    NUMBER
+ PCT_INCREASE					    NUMBER
+ MIN_EXTLEN					    NUMBER
+ STATUS 					    VARCHAR2(9)
+ CONTENTS					    VARCHAR2(21)
+ LOGGING					    VARCHAR2(9)
+ FORCE_LOGGING					    VARCHAR2(3)
+ EXTENT_MANAGEMENT				    VARCHAR2(10)
+ ALLOCATION_TYPE				    VARCHAR2(9)
+ PLUGGED_IN					    VARCHAR2(3)
+ SEGMENT_SPACE_MANAGEMENT			    VARCHAR2(6)
+ DEF_TAB_COMPRESSION				    VARCHAR2(8)
+ RETENTION					    VARCHAR2(11)
+ BIGFILE					    VARCHAR2(3)
+ PREDICATE_EVALUATION				    VARCHAR2(7)
+ ENCRYPTED					    VARCHAR2(3)
+ COMPRESS_FOR					    VARCHAR2(30)
+ DEF_INMEMORY					    VARCHAR2(8)
+ DEF_INMEMORY_PRIORITY				    VARCHAR2(8)
+ DEF_INMEMORY_DISTRIBUTE			    VARCHAR2(15)
+ DEF_INMEMORY_COMPRESSION			    VARCHAR2(17)
+ DEF_INMEMORY_DUPLICATE 			    VARCHAR2(13)
+ SHARED 					    VARCHAR2(13)
+ DEF_INDEX_COMPRESSION				    VARCHAR2(8)
+ INDEX_COMPRESS_FOR				    VARCHAR2(13)
+ DEF_CELLMEMORY 				    VARCHAR2(14)
+ DEF_INMEMORY_SERVICE				    VARCHAR2(12)
+ DEF_INMEMORY_SERVICE_NAME			    VARCHAR2(1000)
+ LOST_WRITE_PROTECT				    VARCHAR2(7)
+ CHUNK_TABLESPACE				    VARCHAR2(1)
+
+SQL>                                 
+SQL> 
+SQL> 
+SQL> alter tablespace SYSTEM offline;
+alter tablespace SYSTEM offline
+*
+ERROR at line 1:
+ORA-01541: system tablespace cannot be brought offline; shut down if necessary
+
+
+SQL> shut immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup mount;
+ORACLE instance started.
+
+Total System Global Area 1258290752 bytes
+Fixed Size		    8896064 bytes
+Variable Size		  553648128 bytes
+Database Buffers	  687865856 bytes
+Redo Buffers		    7880704 bytes
+Database mounted.
+SQL> alter tablespace SYSTEM offline;
+alter tablespace SYSTEM offline
+*
+ERROR at line 1:
+ORA-01109: database not open
+
+
+SQL> alter database open;
+
+Database altered.
+
+SQL> 
+SQL> 
+SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+[oracle@oraclept ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Dec 9 11:40:54 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> 
+SQL> show con_name
+
+CON_NAME
+------------------------------
+DEVDB
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> set history on;
+SQL> 
+SQL> 
+SQL> 
+SQL> hist
+SP2-1651: History list is empty.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> conn venky/venky
+Connected.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select * from tab;
+
+TNAME
+--------------------------------------------------------------------------------
+TABTYPE        CLUSTERID
+------------- ----------
+VENKY
+TABLE
+
+
+SQL> select * from venky; 
+
+	NO NAME
+---------- --------------------
+	10 venky
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+	10 VENKY
+       100 check
+
+	NO NAME
+---------- --------------------
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+       100 check
+
+22 rows selected.
+
+SQL> set time on   
+11:42:32 SQL> 
+11:42:33 SQL> 
+11:42:33 SQL> select current_timestamp from dual;
+
+CURRENT_TIMESTAMP
+---------------------------------------------------------------------------
+09-DEC-24 11.42.47.285700 AM +05:30
+
+11:42:47 SQL> 
+11:42:48 SQL> 
+11:42:49 SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ rman taget /
+
+Argument     Value          Description
+-----------------------------------------------------------------------------
+target       quoted-string  connect-string for target database
+catalog      quoted-string  connect-string for recovery catalog
+auxiliary    quoted-string  connect-string for auxiliary database
+nocatalog    none           if specified, then no recovery catalog
+cmdfile      quoted-string  name of input command file
+log          quoted-string  name of output message log file
+trace        quoted-string  name of output debugging message log file
+append       none           if specified, log is opened in append mode
+debug        optional-args  activate debugging
+msgno        none           show RMAN-nnnn prefix for all messages
+send         quoted-string  send a command to the media manager
+pipe         string         building block for pipe names
+script       string         name of catalog script to execute
+using        list of args   arguments for rman variables
+timeout      integer        number of seconds to wait for pipe input
+checksyntax  none           check the command file for syntax errors
+-----------------------------------------------------------------------------
+Both single and double quotes (' or ") are accepted for a quoted-string.
+Quotes are not required unless the string contains embedded white-space.
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-00552: syntax error in command line arguments
+RMAN-01009: syntax error: found "identifier": expecting one of: "append, auxiliary, catalog, checksyntax, cmdfile, log, msgno, nocatalog, pipe, script, send, target, timeout, using, @, ;"
+RMAN-01008: the bad identifier was: taget
+RMAN-01007: at line 2 column 1 file: command line arguments
+[oracle@oraclept ~]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 11:43:16 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> show all
+2> ;
+
+using target database control file instead of recovery catalog
+RMAN configuration parameters for database with db_unique_name DEVDB are:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1; # default
+CONFIGURE BACKUP OPTIMIZATION OFF; # default
+CONFIGURE DEFAULT DEVICE TYPE TO DISK; # default
+CONFIGURE CONTROLFILE AUTOBACKUP ON; # default
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '%F'; # default
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET; # default
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE MAXSETSIZE TO UNLIMITED; # default
+CONFIGURE ENCRYPTION FOR DATABASE OFF; # default
+CONFIGURE ENCRYPTION ALGORITHM 'AES128'; # default
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE ; # default
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS; # default
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; # default
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/snapcf_devdb.f'; # default
+
+RMAN> CONFIGURE RETENTION POLICY TO REDUNDANCY 1; # default
+CONFIGURE BACKUP OPTIMIZATION OFF; # default
+CONFIGURE DEFAULT DEVICE TYPE TO DISK; # default
+CONFIGURE CONTROLFILE AUTOBACKUP ON; # default
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '/u01/rman_bkp%F'; # default
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET; # default
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE MAXSETSIZE TO UNLIMITED; # default
+CONFIGURE ENCRYPTION FOR DATABASE OFF; # default
+CONFIGURE ENCRYPTION ALGORITHM 'AES128'; # default
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE ; # default
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS; # default
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; # default
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/rman_bkp/snapcf_devdb.f'; # default
+
+new RMAN configuration parameters:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE BACKUP OPTIMIZATION OFF;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE DEFAULT DEVICE TYPE TO DISK;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE CONTROLFILE AUTOBACKUP ON;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '/u01/rman_bkp%F';
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE MAXSETSIZE TO UNLIMITED;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE ENCRYPTION FOR DATABASE OFF;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE ENCRYPTION ALGORITHM 'AES128';
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE;
+new RMAN configuration parameters are successfully stored
+
+RMAN> 
+new RMAN configuration parameters:
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/rman_bkp/snapcf_devdb.f';
+new RMAN configuration parameters are successfully stored
+
+RMAN> show all
+2> ;
+
+RMAN configuration parameters for database with db_unique_name DEVDB are:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1;
+CONFIGURE BACKUP OPTIMIZATION OFF;
+CONFIGURE DEFAULT DEVICE TYPE TO DISK;
+CONFIGURE CONTROLFILE AUTOBACKUP ON;
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '/u01/rman_bkp%F';
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET;
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+CONFIGURE MAXSETSIZE TO UNLIMITED;
+CONFIGURE ENCRYPTION FOR DATABASE OFF;
+CONFIGURE ENCRYPTION ALGORITHM 'AES128';
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE;
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS;
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE;
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/rman_bkp/snapcf_devdb.f';
+
+RMAN> 
+
+RMAN> 
+
+RMAN> crosscheck backup;
+
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=35 device type=DISK
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187263518_mof1l6gj_.bkp RECID=1 STAMP=1187263518
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187264668_mof2p4m6_.bkp RECID=2 STAMP=1187264668
+Crosschecked 2 objects
+
+
+RMAN> delete expired backup;
+
+using channel ORA_DISK_1
+specification does not match any backup in the repository
+
+RMAN> crosscheck archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=35 device type=DISK
+specification does not match any archived log in the repository
+
+RMAN> delete expired archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=35 device type=DISK
+specification does not match any archived log in the repository
+
+RMAN> 
+
+RMAN> 
+
+RMAN> 
+
+RMAN> backup database plus archivelog all;
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-00558: error encountered while parsing input commands
+RMAN-01009: syntax error: found "all": expecting one of: "auxiliary, channel, delete, diskratio, filesperset, force, format, from, include, keep, maxsetsize, noexclude, nokeep, not, pool, reuse, section, skipoffline, skip readonly, skipinaccessible, tag, to, ;"
+RMAN-01007: at line 1 column 33 file: standard input
+
+RMAN> backup database plus archivelog;
+
+
+Starting backup at 09-DEC-2024 11:46:29
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=1 RECID=1 STAMP=1187264790
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 11:46:30
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 11:46:31
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114630_mof2sy7d_.bkp tag=TAG20241209T114630 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 11:46:31
+
+Starting backup at 09-DEC-2024 11:46:31
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00005 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+input datafile file number=00001 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+input datafile file number=00002 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+input datafile file number=00007 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 11:46:31
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 11:46:46
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:15
+Finished backup at 09-DEC-2024 11:46:46
+
+Starting backup at 09-DEC-2024 11:46:46
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=2 RECID=2 STAMP=1187264806
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 11:46:46
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 11:46:47
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114646_mof2tgw7_.bkp tag=TAG20241209T114646 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 11:46:47
+
+Starting Control File and SPFILE Autobackup at 09-DEC-2024 11:46:48
+piece handle=/u01/rman_bkpc-1091993491-20241209-02 comment=NONE
+Finished Control File and SPFILE Autobackup at 09-DEC-2024 11:46:49
+
+RMAN> delete obselete
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-00558: error encountered while parsing input commands
+RMAN-01009: syntax error: found "identifier": expecting one of: "archivelog, backuppiece, backupset, backup, controlfilecopy, copy, datafilecopy, expired, force, foreign, global, noprompt, obsolete, proxy, preplugin, script"
+RMAN-01008: the bad identifier was: obselete
+RMAN-01007: at line 1 column 8 file: standard input
+
+RMAN> delete obsolete
+2> ;
+
+RMAN retention policy will be applied to the command
+RMAN retention policy is set to redundancy 1
+using channel ORA_DISK_1
+Deleting the following obsolete backups and copies:
+Type                 Key    Completion Time    Filename/Handle
+-------------------- ------ ------------------ --------------------
+Backup Set           1      09-DEC-2024 11:25:18
+  Backup Piece       1      09-DEC-2024 11:25:18 /u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187263518_mof1l6gj_.bkp
+Backup Set           2      09-DEC-2024 11:44:28
+  Backup Piece       2      09-DEC-2024 11:44:28 /u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187264668_mof2p4m6_.bkp
+Archive Log          1      09-DEC-2024 11:46:30 /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_1_mof2sxy0_.arc
+Backup Set           3      09-DEC-2024 11:46:30
+  Backup Piece       3      09-DEC-2024 11:46:30 /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114630_mof2sy7d_.bkp
+
+Do you really want to delete the above objects (enter YES or NO)? yes
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187263518_mof1l6gj_.bkp RECID=1 STAMP=1187263518
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/autobackup/2024_12_09/o1_mf_s_1187264668_mof2p4m6_.bkp RECID=2 STAMP=1187264668
+deleted archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_1_mof2sxy0_.arc RECID=1 STAMP=1187264790
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114630_mof2sy7d_.bkp RECID=3 STAMP=1187264790
+Deleted 4 objects
+
+
+RMAN> report obsolete
+2> ;
+
+RMAN retention policy will be applied to the command
+RMAN retention policy is set to redundancy 1
+no obsolete backups found
+
+RMAN> show all;
+
+RMAN configuration parameters for database with db_unique_name DEVDB are:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1;
+CONFIGURE BACKUP OPTIMIZATION OFF;
+CONFIGURE DEFAULT DEVICE TYPE TO DISK;
+CONFIGURE CONTROLFILE AUTOBACKUP ON;
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '/u01/rman_bkp%F';
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET;
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1;
+CONFIGURE MAXSETSIZE TO UNLIMITED;
+CONFIGURE ENCRYPTION FOR DATABASE OFF;
+CONFIGURE ENCRYPTION ALGORITHM 'AES128';
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE;
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS;
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE;
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/rman_bkp/snapcf_devdb.f';
+
+RMAN> 	exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ mkdir -p /u01/aux
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 11:53:11 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 9:47', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/aux' ;
+
+Starting recover at 09-DEC-2024 11:53:28
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=1 device type=DISK
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='gDfr'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=gDfr_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/aux
+log_archive_dest_1='location=/u01/aux'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 9:47', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 11:53:58
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=38 device type=DISK
+
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 11:54:00
+RMAN-03015: error occurred in stored script Memory Script
+RMAN-06026: some targets not found - aborting restore
+RMAN-06024: no backup or copy of the control file found to restore
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 9:47', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 11:54:47
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='tiyb'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=tiyb_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 9:47', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 11:55:13
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=38 device type=DISK
+
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 11:55:16
+RMAN-03015: error occurred in stored script Memory Script
+RMAN-06026: some targets not found - aborting restore
+RMAN-06024: no backup or copy of the control file found to restore
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/aux' ;
+
+Starting recover at 09-DEC-2024 11:57:46
+current log archived
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='fDBj'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=fDBj_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/aux
+log_archive_dest_1='location=/u01/aux'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 11:58:19
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=35 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-02
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-02 tag=TAG20241209T114648
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/aux/DEVDB/controlfile/o1_mf_mof3j4q4_.ctl
+Finished restore at 09-DEC-2024 11:58:21
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/aux/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 11:58:26
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/aux/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/aux/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/aux/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 11:58:33
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187265514 file name=/u01/aux/DEVDB/datafile/o1_mf_system_mof3jbvt_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187265514 file name=/u01/aux/DEVDB/datafile/o1_mf_undotbs1_mof3jbwn_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187265514 file name=/u01/aux/DEVDB/datafile/o1_mf_sysaux_mof3jbwg_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 11:58:34
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 2 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc
+archived log for thread 1 with sequence 3 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc thread=1 sequence=2
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc thread=1 sequence=3
+media recovery complete, elapsed time: 00:00:00
+Finished recover at 09-DEC-2024 11:58:35
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_sysaux_mof3jbwg_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_undotbs1_mof3jbwn_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_system_mof3jbvt_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_sysaux_mof3jbwg_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_undotbs1_mof3jbwn_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/datafile/o1_mf_system_mof3jbvt_.dbf deleted
+auxiliary instance file /u01/aux/DEVDB/controlfile/o1_mf_mof3j4q4_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 11:58:39
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 11:59:38
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='jEpo'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=jEpo_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 11:59:59
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-02
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-02 tag=TAG20241209T114648
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof3m7q8_.ctl
+Finished restore at 09-DEC-2024 12:00:00
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:00:06
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:00:13
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187265613 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof3mgds_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187265613 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof3mgfo_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187265613 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof3mgfg_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 11:47', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:00:14
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 2 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc
+archived log for thread 1 with sequence 3 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc thread=1 sequence=2
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc thread=1 sequence=3
+media recovery complete, elapsed time: 00:00:00
+Finished recover at 09-DEC-2024 12:00:15
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof3mgfg_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof3mgfo_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof3mgds_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof3mgfg_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof3mgfo_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof3mgds_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof3m7q8_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:00:19
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ l
+bash: l: command not found...
+[oracle@oraclept rman_bkp]$ ll
+total 2576196
+-rw-r-----. 1 oracle oinstall   76695040 Dec  9 11:10 273c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  9 11:10 283c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  9 11:11 293c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  9 11:11 2a3c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   22590464 Dec  9 11:11 2b3c8bq9_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  9 11:11 2c3c8bqa_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  9 11:11 2d3c8bqb_1_1
+-rw-r-----. 1 oracle oinstall 1327947776 Dec  9 11:15 2e3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall 1024221184 Dec  9 11:17 2f3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall       7680 Dec  9 11:17 2g3c8bqs_1_1
+-rw-r-----. 1 oracle oinstall   11206656 Dec  9 11:17 c-896617639-20241209-00
+drwxr-x---. 5 oracle oinstall         58 Dec  9 12:00 DEVDB
+-rw-r-----. 1 oracle oinstall   11091968 Dec  9 11:18 snapcf_DB.f
+-rw-r-----. 1 oracle oinstall   10928128 Dec  9 11:46 snapcf_devdb.f
+[oracle@oraclept rman_bkp]$ cd DEVDB
+[oracle@oraclept DEVDB]$ ll
+total 0
+drwxr-x---. 2 oracle oinstall  6 Dec  9 12:00 controlfile
+drwxr-x---. 2 oracle oinstall 38 Dec  9 12:00 datafile
+drwxr-x---. 2 oracle oinstall  6 Dec  9 12:00 onlinelog
+[oracle@oraclept DEVDB]$ cd controlfile
+[oracle@oraclept controlfile]$ ll
+total 0
+[oracle@oraclept controlfile]$ cd ..
+[oracle@oraclept DEVDB]$ cd datafile
+[oracle@oraclept datafile]$ ll
+total 1024
+-rw-r-----. 1 oracle oinstall 2058362880 Dec  9 12:00 o1_mf_temp_mof3mqtc_.tmp
+[oracle@oraclept datafile]$ cd ..
+[oracle@oraclept DEVDB]$ cd onlinelog
+[oracle@oraclept onlinelog]$ ll
+total 0
+[oracle@oraclept onlinelog]$ cd ..
+[oracle@oraclept DEVDB]$ cd 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 2576196
+-rw-r-----. 1 oracle oinstall   76695040 Dec  9 11:10 273c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  9 11:10 283c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  9 11:11 293c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  9 11:11 2a3c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   22590464 Dec  9 11:11 2b3c8bq9_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  9 11:11 2c3c8bqa_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  9 11:11 2d3c8bqb_1_1
+-rw-r-----. 1 oracle oinstall 1327947776 Dec  9 11:15 2e3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall 1024221184 Dec  9 11:17 2f3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall       7680 Dec  9 11:17 2g3c8bqs_1_1
+-rw-r-----. 1 oracle oinstall   11206656 Dec  9 11:17 c-896617639-20241209-00
+drwxr-x---. 5 oracle oinstall         58 Dec  9 12:00 DEVDB
+-rw-r-----. 1 oracle oinstall   11091968 Dec  9 11:18 snapcf_DB.f
+-rw-r-----. 1 oracle oinstall   10928128 Dec  9 11:46 snapcf_devdb.f
+[oracle@oraclept rman_bkp]$ rm *
+rm: cannot remove ‘DEVDB’: Is a directory
+[oracle@oraclept rman_bkp]$ rm -rf
+[oracle@oraclept rman_bkp]$ ll
+total 0
+drwxr-x---. 5 oracle oinstall 58 Dec  9 12:00 DEVDB
+[oracle@oraclept rman_bkp]$ rm -rf *
+[oracle@oraclept rman_bkp]$ ll
+total 0
+[oracle@oraclept rman_bkp]$ cd
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ 
+[oracle@oraclept ~]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 12:05:46 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> crosscheck backup
+2> ;
+
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=68 device type=DISK
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp RECID=4 STAMP=1187264791
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114646_mof2tgw7_.bkp RECID=5 STAMP=1187264806
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/rman_bkpc-1091993491-20241209-02 RECID=6 STAMP=1187264808
+Crosschecked 3 objects
+
+
+RMAN> delete expired backup;
+
+using channel ORA_DISK_1
+specification does not match any backup in the repository
+
+RMAN> crosscheck archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=68 device type=DISK
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc RECID=2 STAMP=1187264806
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc RECID=3 STAMP=1187265467
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc RECID=4 STAMP=1187265506
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc RECID=5 STAMP=1187265605
+Crosschecked 4 objects
+
+
+RMAN> delete expired archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=68 device type=DISK
+specification does not match any archived log in the repository
+
+RMAN> 
+
+RMAN> 
+
+RMAN> 
+
+RMAN> 
+
+RMAN> backup database plus archivelog;
+
+
+Starting backup at 09-DEC-2024 12:09:10
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=2 RECID=2 STAMP=1187264806
+input archived log thread=1 sequence=3 RECID=3 STAMP=1187265467
+input archived log thread=1 sequence=4 RECID=4 STAMP=1187265506
+input archived log thread=1 sequence=5 RECID=5 STAMP=1187265605
+input archived log thread=1 sequence=6 RECID=6 STAMP=1187266150
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:09:10
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:09:11
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120910_mof44gqg_.bkp tag=TAG20241209T120910 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:09:11
+
+Starting backup at 09-DEC-2024 12:09:11
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00005 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+input datafile file number=00001 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+input datafile file number=00002 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+input datafile file number=00007 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:09:12
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:09:27
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp tag=TAG20241209T120911 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:15
+Finished backup at 09-DEC-2024 12:09:27
+
+Starting backup at 09-DEC-2024 12:09:27
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=7 RECID=7 STAMP=1187266167
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:09:27
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:09:28
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120927_mof44zg8_.bkp tag=TAG20241209T120927 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:09:28
+
+Starting Control File and SPFILE Autobackup at 09-DEC-2024 12:09:28
+piece handle=/u01/rman_bkpc-1091993491-20241209-03 comment=NONE
+Finished Control File and SPFILE Autobackup at 09-DEC-2024 12:09:29
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:11:01
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='xtEa'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=xtEa_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:11:25
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-02
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-02 tag=TAG20241209T114648
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof48osg_.ctl
+Finished restore at 09-DEC-2024 12:11:26
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:11:31
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:11:38
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187266299 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof48vt5_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187266299 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof48vv0_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187266299 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof48vtw_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:11:39
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 2 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc
+archived log for thread 1 with sequence 3 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc
+archived log for thread 1 with sequence 4 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc
+archived log for thread 1 with sequence 5 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc
+archived log for thread 1 with sequence 6 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc thread=1 sequence=2
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc thread=1 sequence=3
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc thread=1 sequence=4
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc thread=1 sequence=5
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc thread=1 sequence=6
+media recovery complete, elapsed time: 00:00:01
+Finished recover at 09-DEC-2024 12:11:41
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof48vtw_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof48vv0_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof48vt5_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof48vtw_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof48vv0_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof48vt5_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof48osg_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:11:45
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ rman auxiliary /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 12:12:09 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to auxiliary database: DEVDB (DBID=1091993491)
+
+RMAN> RECOVER TABLE "VENKY"."EMP"UNTIL TIME "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:12:13
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:12:13
+RMAN-06455: Tablespace Point-in-Time Recovery requires Enterprise Edition
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 12:12:21 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> RECOVER TABLE "VENKY"."EMP" UNTIL TIME "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:16:18
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=74 device type=DISK
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='wfbm'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=wfbm_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:16:40
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-02
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-02 tag=TAG20241209T114648
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4lk4l_.ctl
+Finished restore at 09-DEC-2024 12:16:42
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:16:46
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:16:54
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187266614 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4lq25_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187266614 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4lq2z_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187266614 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4lq2s_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:06', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:16:54
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 2 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc
+archived log for thread 1 with sequence 3 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc
+archived log for thread 1 with sequence 4 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc
+archived log for thread 1 with sequence 5 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc
+archived log for thread 1 with sequence 6 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc thread=1 sequence=2
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc thread=1 sequence=3
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc thread=1 sequence=4
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc thread=1 sequence=5
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc thread=1 sequence=6
+media recovery complete, elapsed time: 00:00:01
+Finished recover at 09-DEC-2024 12:16:56
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4lq2s_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4lq2z_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4lq25_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4lq2s_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4lq2z_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4lq25_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4lk4l_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:17:01
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> RECOVER TABLE "VENKY"."EMP" UNTIL TIME "TO_DATE('09-DEC-2024 12:08', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:18:04
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='BxDE'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=BxDE_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:08', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:18:23
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-02
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-02 tag=TAG20241209T114648
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4oqp9_.ctl
+Finished restore at 09-DEC-2024 12:18:24
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:08', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:18:29
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp tag=TAG20241209T114631
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:18:36
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187266717 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4oxwc_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187266717 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4oxwz_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187266717 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4oxwt_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:08', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:18:37
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 2 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc
+archived log for thread 1 with sequence 3 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc
+archived log for thread 1 with sequence 4 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc
+archived log for thread 1 with sequence 5 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc
+archived log for thread 1 with sequence 6 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc thread=1 sequence=2
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc thread=1 sequence=3
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc thread=1 sequence=4
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc thread=1 sequence=5
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc thread=1 sequence=6
+media recovery complete, elapsed time: 00:00:01
+Finished recover at 09-DEC-2024 12:18:39
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4oxwt_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4oxwz_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4oxwc_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4oxwt_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4oxwz_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4oxwc_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4oqp9_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:18:42
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> RECOVER TABLE "VENKY"."EMP" UNTIL TIME "TO_DATE('09-DEC-2024 12:11', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:19:20
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='DDis'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=DDis_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:11', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:19:41
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-03
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-03 tag=TAG20241209T120928
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4r6fp_.ctl
+Finished restore at 09-DEC-2024 12:19:43
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:11', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:19:48
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp tag=TAG20241209T120911
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:19:55
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187266795 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4rdpf_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187266795 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4rdq4_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187266795 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4rdps_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:11', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:19:56
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 7 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_7_mof44z8j_.arc
+archived log for thread 1 with sequence 8 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_8_mof48vcg_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_7_mof44z8j_.arc thread=1 sequence=7
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_8_mof48vcg_.arc thread=1 sequence=8
+media recovery complete, elapsed time: 00:00:00
+Finished recover at 09-DEC-2024 12:19:57
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4rdps_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4rdq4_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4rdpf_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof4rdps_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof4rdq4_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof4rdpf_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof4r6fp_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:20:01
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept ~]$ cd /u01/rman
+rman/        rman_backup/ rman_bkp/    
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 10672
+drwxr-x---. 5 oracle oinstall       58 Dec  9 12:11 DEVDB
+-rw-r-----. 1 oracle oinstall 10928128 Dec  9 12:09 snapcf_devdb.f
+[oracle@oraclept rman_bkp]$ rm -rf *
+[oracle@oraclept rman_bkp]$ ll
+total 0
+[oracle@oraclept rman_bkp]$ rman target
+
+Argument     Value          Description
+-----------------------------------------------------------------------------
+target       quoted-string  connect-string for target database
+catalog      quoted-string  connect-string for recovery catalog
+auxiliary    quoted-string  connect-string for auxiliary database
+nocatalog    none           if specified, then no recovery catalog
+cmdfile      quoted-string  name of input command file
+log          quoted-string  name of output message log file
+trace        quoted-string  name of output debugging message log file
+append       none           if specified, log is opened in append mode
+debug        optional-args  activate debugging
+msgno        none           show RMAN-nnnn prefix for all messages
+send         quoted-string  send a command to the media manager
+pipe         string         building block for pipe names
+script       string         name of catalog script to execute
+using        list of args   arguments for rman variables
+timeout      integer        number of seconds to wait for pipe input
+checksyntax  none           check the command file for syntax errors
+-----------------------------------------------------------------------------
+Both single and double quotes (' or ") are accepted for a quoted-string.
+Quotes are not required unless the string contains embedded white-space.
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-00552: syntax error in command line arguments
+RMAN-01009: syntax error: found "end-of-file": expecting one of: "double-quoted-string, identifier, single-quoted-string, "
+RMAN-01007: at line 0 column 0 file: command line arguments
+[oracle@oraclept rman_bkp]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 12:21:13 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> crosscheck backup;
+
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=81 device type=DISK
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T114631_mof2szol_.bkp RECID=4 STAMP=1187264791
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114646_mof2tgw7_.bkp RECID=5 STAMP=1187264806
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/rman_bkpc-1091993491-20241209-02 RECID=6 STAMP=1187264808
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120910_mof44gqg_.bkp RECID=7 STAMP=1187266150
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp RECID=8 STAMP=1187266152
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120927_mof44zg8_.bkp RECID=9 STAMP=1187266167
+crosschecked backup piece: found to be 'AVAILABLE'
+backup piece handle=/u01/rman_bkpc-1091993491-20241209-03 RECID=10 STAMP=1187266168
+Crosschecked 7 objects
+
+
+RMAN> delete expired backup;
+
+using channel ORA_DISK_1
+specification does not match any backup in the repository
+
+RMAN> crosscheck archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=81 device type=DISK
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_2_mof2tgq1_.arc RECID=2 STAMP=1187264806
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_3_mof3h31c_.arc RECID=3 STAMP=1187265467
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_4_mof3jb8r_.arc RECID=4 STAMP=1187265506
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_5_mof3mftp_.arc RECID=5 STAMP=1187265605
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_6_mof44ghj_.arc RECID=6 STAMP=1187266150
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_7_mof44z8j_.arc RECID=7 STAMP=1187266167
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_8_mof48vcg_.arc RECID=8 STAMP=1187266291
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_9_mof4lpnx_.arc RECID=9 STAMP=1187266606
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_10_mof4oxgb_.arc RECID=10 STAMP=1187266709
+validation succeeded for archived log
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_11_mof4rd7m_.arc RECID=11 STAMP=1187266788
+Crosschecked 10 objects
+
+
+RMAN> delete expired archivelog all;
+
+released channel: ORA_DISK_1
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=81 device type=DISK
+specification does not match any archived log in the repository
+
+RMAN> backup database plus archivelog all;
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-00558: error encountered while parsing input commands
+RMAN-01009: syntax error: found "all": expecting one of: "auxiliary, channel, delete, diskratio, filesperset, force, format, from, include, keep, maxsetsize, noexclude, nokeep, not, pool, reuse, section, skipoffline, skip readonly, skipinaccessible, tag, to, ;"
+RMAN-01007: at line 1 column 33 file: standard input
+
+RMAN>  backup database plus archivelog;
+
+
+Starting backup at 09-DEC-2024 12:22:29
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=2 RECID=2 STAMP=1187264806
+input archived log thread=1 sequence=3 RECID=3 STAMP=1187265467
+input archived log thread=1 sequence=4 RECID=4 STAMP=1187265506
+input archived log thread=1 sequence=5 RECID=5 STAMP=1187265605
+input archived log thread=1 sequence=6 RECID=6 STAMP=1187266150
+input archived log thread=1 sequence=7 RECID=7 STAMP=1187266167
+input archived log thread=1 sequence=8 RECID=8 STAMP=1187266291
+input archived log thread=1 sequence=9 RECID=9 STAMP=1187266606
+input archived log thread=1 sequence=10 RECID=10 STAMP=1187266709
+input archived log thread=1 sequence=11 RECID=11 STAMP=1187266788
+input archived log thread=1 sequence=12 RECID=12 STAMP=1187266950
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:22:30
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:22:31
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122230_mof4xgbz_.bkp tag=TAG20241209T122230 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:22:31
+
+Starting backup at 09-DEC-2024 12:22:31
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00005 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+input datafile file number=00001 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+input datafile file number=00002 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+input datafile file number=00007 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:22:31
+^Z
+
+
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:22:46
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122231_mof4xhvq_.bkp tag=TAG20241209T122231 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:15
+Finished backup at 09-DEC-2024 12:22:46
+
+Starting backup at 09-DEC-2024 12:22:46
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=13 RECID=13 STAMP=1187266967
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:22:47
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:22:48
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122247_mof4xzgg_.bkp tag=TAG20241209T122247 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:22:48
+
+Starting Control File and SPFILE Autobackup at 09-DEC-2024 12:22:48
+^C
+user interrupt received
+Finished Control File and SPFILE Autobackup at 09-DEC-2024 12:22:48
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03099: job cancelled at user request
+
+RMAN> delete backup;
+
+using channel ORA_DISK_1
+
+List of Backup Pieces
+BP Key  BS Key  Pc# Cp# Status      Device Type Piece Name
+------- ------- --- --- ----------- ----------- ----------
+5       5       1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114646_mof2tgw7_.bkp
+6       6       1   1   AVAILABLE   DISK        /u01/rman_bkpc-1091993491-20241209-02
+7       7       1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120910_mof44gqg_.bkp
+8       8       1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp
+9       9       1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120927_mof44zg8_.bkp
+10      10      1   1   AVAILABLE   DISK        /u01/rman_bkpc-1091993491-20241209-03
+11      11      1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122230_mof4xgbz_.bkp
+12      12      1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122231_mof4xhvq_.bkp
+13      13      1   1   AVAILABLE   DISK        /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122247_mof4xzgg_.bkp
+
+Do you really want to delete the above objects (enter YES or NO)? yes
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T114646_mof2tgw7_.bkp RECID=5 STAMP=1187264806
+deleted backup piece
+backup piece handle=/u01/rman_bkpc-1091993491-20241209-02 RECID=6 STAMP=1187264808
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120910_mof44gqg_.bkp RECID=7 STAMP=1187266150
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T120911_mof44j83_.bkp RECID=8 STAMP=1187266152
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T120927_mof44zg8_.bkp RECID=9 STAMP=1187266167
+deleted backup piece
+backup piece handle=/u01/rman_bkpc-1091993491-20241209-03 RECID=10 STAMP=1187266168
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122230_mof4xgbz_.bkp RECID=11 STAMP=1187266950
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122231_mof4xhvq_.bkp RECID=12 STAMP=1187266951
+deleted backup piece
+backup piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122247_mof4xzgg_.bkp RECID=13 STAMP=1187266967
+Deleted 9 objects
+
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@oraclept rman_bkp]$ ll
+total 0
+[oracle@oraclept rman_bkp]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Mon Dec 9 12:25:16 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: DEVDB (DBID=1091993491)
+
+RMAN> backup database plus archivelog;    
+
+
+Starting backup at 09-DEC-2024 12:25:33
+current log archived
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=35 device type=DISK
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=2 RECID=2 STAMP=1187264806
+input archived log thread=1 sequence=3 RECID=3 STAMP=1187265467
+input archived log thread=1 sequence=4 RECID=4 STAMP=1187265506
+input archived log thread=1 sequence=5 RECID=5 STAMP=1187265605
+input archived log thread=1 sequence=6 RECID=6 STAMP=1187266150
+input archived log thread=1 sequence=7 RECID=7 STAMP=1187266167
+input archived log thread=1 sequence=8 RECID=8 STAMP=1187266291
+input archived log thread=1 sequence=9 RECID=9 STAMP=1187266606
+input archived log thread=1 sequence=10 RECID=10 STAMP=1187266709
+input archived log thread=1 sequence=11 RECID=11 STAMP=1187266788
+input archived log thread=1 sequence=12 RECID=12 STAMP=1187266950
+input archived log thread=1 sequence=13 RECID=13 STAMP=1187266967
+input archived log thread=1 sequence=14 RECID=14 STAMP=1187267133
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:25:34
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:25:35
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122534_mof536h8_.bkp tag=TAG20241209T122534 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:25:35
+
+Starting backup at 09-DEC-2024 12:25:35
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00005 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_soetbs_mof1jfvo_.dbf
+input datafile file number=00001 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_system_mof1jfv1_.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_sysaux_mof1jfv6_.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_undotbs1_mof1jfwn_.dbf
+input datafile file number=00002 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_venkyts_mof1jfx3_.dbf
+input datafile file number=00007 name=/u01/app/oracle/oradata/DEVDB/datafile/o1_mf_users_mof1jfvq_.dbf
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:25:35
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:25:42
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122535_mof53807_.bkp tag=TAG20241209T122535 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:07
+Finished backup at 09-DEC-2024 12:25:42
+
+Starting backup at 09-DEC-2024 12:25:42
+current log archived
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=15 RECID=15 STAMP=1187267143
+channel ORA_DISK_1: starting piece 1 at 09-DEC-2024 12:25:43
+channel ORA_DISK_1: finished piece 1 at 09-DEC-2024 12:25:44
+piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_annnn_TAG20241209T122543_mof53h83_.bkp tag=TAG20241209T122543 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 09-DEC-2024 12:25:44
+
+Starting Control File and SPFILE Autobackup at 09-DEC-2024 12:25:44
+piece handle=/u01/rman_bkpc-1091993491-20241209-04 comment=NONE
+Finished Control File and SPFILE Autobackup at 09-DEC-2024 12:25:45
+
+RMAN> 
+
+RMAN> 
+
+RMAN> 
+
+RMAN> RECOVER TABLE "VENKY"."EMP" UNTIL TIME "TO_DATE('09-DEC-2024 12:25', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:26:56
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='ughn'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=ughn_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:25', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:27:18
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:27:21
+RMAN-03015: error occurred in stored script Memory Script
+RMAN-06026: some targets not found - aborting restore
+RMAN-06024: no backup or copy of the control file found to restore
+
+RMAN> RECOVER TABLE "VENKY"."EMP" UNTIL TIME "TO_DATE('09-DEC-2024 12:27', 'DD-MON-YYYY HH24:MI')"AUXILIARY DESTINATION '/u01/rman_bkp' ;
+
+Starting recover at 09-DEC-2024 12:28:27
+current log archived
+using channel ORA_DISK_1
+RMAN-05026: warning: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+
+Creating automatic instance, with SID='stmF'
+
+initialization parameters used for automatic instance:
+db_name=DEVDB
+db_unique_name=stmF_pitr_DEVDB
+compatible=19.0.0
+db_block_size=8192
+db_files=200
+diagnostic_dest=/u01/app/oracle
+_system_trig_enabled=FALSE
+sga_target=1200M
+processes=200
+db_create_file_dest=/u01/rman_bkp
+log_archive_dest_1='location=/u01/rman_bkp'
+#No auxiliary parameter file used
+
+
+starting up automatic instance DEVDB
+
+Oracle instance started
+
+Total System Global Area    1258290752 bytes
+
+Fixed Size                     8896064 bytes
+Variable Size                318767104 bytes
+Database Buffers             922746880 bytes
+Redo Buffers                   7880704 bytes
+Automatic instance created
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:27', 'DD-MON-YYYY HH24:MI')";
+# restore the controlfile
+restore clone controlfile;
+ 
+# mount the controlfile
+sql clone 'alter database mount clone database';
+ 
+# archive current online log 
+sql 'alter system archive log current';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 09-DEC-2024 12:28:47
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=34 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /u01/rman_bkpc-1091993491-20241209-04
+channel ORA_AUX_DISK_1: piece handle=/u01/rman_bkpc-1091993491-20241209-04 tag=TAG20241209T122544
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/u01/rman_bkp/DEVDB/controlfile/o1_mf_mof59890_.ctl
+Finished restore at 09-DEC-2024 12:28:49
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:27', 'DD-MON-YYYY HH24:MI')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  4 to new;
+set newname for clone datafile  3 to new;
+set newname for clone tempfile  1 to new;
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 4, 3;
+ 
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /u01/rman_bkp/DEVDB/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 09-DEC-2024 12:28:56
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /u01/rman_bkp/DEVDB/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00004 to /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122535_mof53807_.bkp
+channel ORA_AUX_DISK_1: piece handle=/u01/app/oracle/fast_recovery_area/DEVDB/backupset/2024_12_09/o1_mf_nnndf_TAG20241209T122535_mof53807_.bkp tag=TAG20241209T122535
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:07
+Finished restore at 09-DEC-2024 12:29:03
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=9 STAMP=1187267343 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof59jdr_.dbf
+datafile 4 switched to datafile copy
+input datafile copy RECID=10 STAMP=1187267343 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof59jf0_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=11 STAMP=1187267343 file name=/u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof59jdw_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "TO_DATE('09-DEC-2024 12:27', 'DD-MON-YYYY HH24:MI')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  4 online";
+sql clone "alter database datafile  3 online";
+# recover and open database read only
+recover clone database tablespace  "SYSTEM", "UNDOTBS1", "SYSAUX";
+sql clone 'alter database open read only';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  4 online
+
+sql statement: alter database datafile  3 online
+
+Starting recover at 09-DEC-2024 12:29:04
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 15 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_15_mof53h25_.arc
+archived log for thread 1 with sequence 16 is already on disk as file /u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_16_mof58mws_.arc
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_15_mof53h25_.arc thread=1 sequence=15
+archived log file name=/u01/app/oracle/fast_recovery_area/DEVDB/archivelog/2024_12_09/o1_mf_1_16_mof58mws_.arc thread=1 sequence=16
+media recovery complete, elapsed time: 00:00:01
+Finished recover at 09-DEC-2024 12:29:05
+
+sql statement: alter database open read only
+
+Removing automatic instance
+shutting down automatic instance 
+Oracle instance shut down
+Automatic instance removed
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof59jdw_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof59jf0_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof59jdr_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_sysaux_mof59jdw_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_undotbs1_mof59jf0_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/datafile/o1_mf_system_mof59jdr_.dbf deleted
+auxiliary instance file /u01/rman_bkp/DEVDB/controlfile/o1_mf_mof59890_.ctl deleted
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/09/2024 12:29:09
+RMAN-05063: Cannot recover specified tables
+RMAN-05057: Table VENKY.EMP not found
+
+RMAN> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ORACLE PT
+
+[oracle@oraclept ~]$ cd /u01/rman_bkp
+[oracle@oraclept rman_bkp]$ ll
+total 2688904
+-rw-r-----. 1 oracle oinstall   76695040 Dec  8 14:19 1s3c62qm_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  8 14:19 1t3c62qm_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  8 14:19 1u3c62qo_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  8 14:19 1v3c62qo_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  8 14:19 203c62qp_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  8 14:19 213c62qp_1_1
+-rw-r-----. 1 oracle oinstall    4379136 Dec  8 14:19 223c62qq_1_1
+-rw-r-----. 1 oracle oinstall 1323941888 Dec  8 14:19 233c62qs_1_1
+-rw-r-----. 1 oracle oinstall 1128824832 Dec  8 14:19 243c62qs_1_1
+-rw-r-----. 1 oracle oinstall       8704 Dec  8 14:19 253c62rb_1_1
+-rw-r-----. 1 oracle oinstall   10715136 Dec  6 22:16 c-896617639-20241206-08
+-rw-r-----. 1 oracle oinstall   11010048 Dec  7 14:16 c-896617639-20241207-02
+-rw-r-----. 1 oracle oinstall   11010048 Dec  7 21:00 c-896617639-20241207-05
+-rw-r-----. 1 oracle oinstall   11206656 Dec  7 21:08 c-896617639-20241207-06
+-rw-r-----. 1 oracle oinstall   11206656 Dec  8 14:19 c-896617639-20241208-02
+-rw-r-----. 1 oracle oinstall   11091968 Dec  8 14:19 snapcf_DB.f
+[oracle@oraclept rman_bkp]$ rm *
+[oracle@oraclept rman_bkp]$ ll
+total 0
+[oracle@oraclept rman_bkp]$ ll
+total 2565532
+-rw-r-----. 1 oracle oinstall   76695040 Dec  9 11:04 273c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   55749120 Dec  9 11:04 283c8bq7_1_1
+-rw-r-----. 1 oracle oinstall   41552896 Dec  9 11:04 293c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   33908736 Dec  9 11:04 2a3c8bq8_1_1
+-rw-r-----. 1 oracle oinstall   22590464 Dec  9 11:04 2b3c8bq9_1_1
+-rw-r-----. 1 oracle oinstall   14030336 Dec  9 11:04 2c3c8bqa_1_1
+-rw-r-----. 1 oracle oinstall    8078848 Dec  9 11:04 2d3c8bqb_1_1
+-rw-r-----. 1 oracle oinstall 1327947776 Dec  9 11:04 2e3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall 1024221184 Dec  9 11:04 2f3c8bqc_1_1
+-rw-r-----. 1 oracle oinstall       7680 Dec  9 11:05 2g3c8bqs_1_1
+-rw-r-----. 1 oracle oinstall   11206656 Dec  9 11:05 c-896617639-20241209-00
+-rw-r-----. 1 oracle oinstall   11091968 Dec  9 11:05 snapcf_DB.f
+[oracle@oraclept rman_bkp]$ 
