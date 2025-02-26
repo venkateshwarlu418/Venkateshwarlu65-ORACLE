@@ -1,0 +1,699 @@
+Alter tablespace USERS add datafile '/u01/app/oracle/oradata/BANK/datafile/users2_.dbf'  size 5M autoextend on;
+alter tablespace USERS add datafile '/u01/app/oracle/oradata/BANK/datafile/users3.dbf' size 5M autoextend on;
+
+alter tablespace USERS add datafile '/u01/app/oracle/oradata/BANK/datafile/users3.dbf' size 5M autoextend on;
+
+select file#,name from v$datafile where file#=13;
+
+select FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||bytes from dba_data_files where file_id = 13;
+
+
+alter database create datafile '/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/UNNAMED00013' as '/u01/app/oracle/oradata/BANKA/datafile/user2.dbf' size 50M;
+
+
+
+
+unnamed
+
+Primary
+[oracle@bank ~]$ . oraenv
+ORACLE_SID = [bank] ? bank
+The Oracle base remains unchanged with value /u01/app/oracle
+[oracle@bank ~]$ sqlplus / as sysdba
+
+
+
+SQL> startup;
+ORACLE instance started.
+
+
+SQL> archive log list
+
+SQL> set lines 300 pages 300;
+SELECT sequence#, first_time, next_time, applied FROM v$archived_log ORDER BY sequence#;SQL> 
+
+ SEQUENCE# FIRST_TIM NEXT_TIME APPLIED
+---------- --------- --------- ---------
+	 7 05-FEB-25 05-FEB-25 YES
+	 8 05-FEB-25 05-FEB-25 YES
+
+SQL> alter system set standby_file_management = manual scope = both;
+
+System altered.
+
+SQL> SELECT tablespace_name,
+       block_size,
+       extent_management,
+       segment_space_management,
+       status
+FROM   dba_tablespaces
+ORDER BY tablespace_name;  2    3    4    5    6    7  
+
+TABLESPACE_NAME 	       BLOCK_SIZE EXTENT_MAN SEGMEN STATUS
+------------------------------ ---------- ---------- ------ ---------
+SYSAUX				     8192 LOCAL      AUTO   ONLINE
+SYSTEM				     8192 LOCAL      MANUAL ONLINE
+TEMP				     8192 LOCAL      MANUAL ONLINE
+UNDOTBS1			     8192 LOCAL      MANUAL ONLINE
+USERS				     8192 LOCAL      AUTO   ONLINE
+
+SQL> COLUMN file_name FORMAT A70;
+SELECT tablespace_name,
+		file_id,
+       file_name,
+       ROUND(bytes/1024/1024) AS size_mb,
+       ROUND(maxbytes/1024/1024) AS max_size_mb,
+       autoextensible,
+       increment_by,
+       status
+FROM   dba_data_files
+--WHERE  tablespace_name = 'USERS'
+ORDER BY file_id;SQL>   2    3    4    5    6    7    8    9   10   11  
+
+TABLESPACE_NAME 		  FILE_ID FILE_NAME							    SIZE_MB MAX_SIZE_MB AUT INCREMENT_BY STATUS
+------------------------------ ---------- ---------------------------------------------------------------------- ---------- ----------- --- ------------ ---------
+SYSTEM					1 /u01/app/oracle/oradata/BANK/datafile/o1_mf_system_mt6gplps_.dbf		890	  32768 YES	    1280 AVAILABLE
+SYSAUX					3 /u01/app/oracle/oradata/BANK/datafile/o1_mf_sysaux_mt6gtpq6_.dbf		530	  32768 YES	    1280 AVAILABLE
+UNDOTBS1				4 /u01/app/oracle/oradata/BANK/datafile/o1_mf_undotbs1_mt6gw5rc_.dbf		280	  32768 YES	     640 AVAILABLE
+USERS					7 /u01/app/oracle/oradata/BANK/datafile/o1_mf_users_mt6gw6tx_.dbf		  5	  32768 YES	     160 AVAILABLE
+
+SQL> Alter tablespace USERS add datafile '/u01/app/oracle/oradata/BANK/datafile/users2_.dbf'  size 5M autoextend on;
+
+Tablespace altered.
+
+SQL> 
+SQL> 
+SQL> COLUMN file_name FORMAT A70;
+SELECT tablespace_name,
+		file_id,
+       file_name,
+       ROUND(bytes/1024/1024) AS size_mb,
+       ROUND(maxbytes/1024/1024) AS max_size_mb,
+       autoextensible,
+       increment_by,
+       status
+FROM   dba_data_files
+--WHERE  tablespace_name = 'USERS'
+ORDER BY file_id;SQL>   2    3    4    5    6    7    8    9   10   11  
+
+TABLESPACE_NAME 		  FILE_ID FILE_NAME								    SIZE_MB MAX_SIZE_MB AUT INCREMENT_BY STATUS
+------------------------------ ---------- ---------------------------------------------------------------------- ---------- ----------- --- ------------ ---------
+SYSTEM					1 /u01/app/oracle/oradata/BANK/datafile/o1_mf_system_mt6gplps_.dbf		890	  32768 YES	    1280 AVAILABLE
+SYSAUX					3 /u01/app/oracle/oradata/BANK/datafile/o1_mf_sysaux_mt6gtpq6_.dbf		530	  32768 YES	    1280 AVAILABLE
+UNDOTBS1				4 /u01/app/oracle/oradata/BANK/datafile/o1_mf_undotbs1_mt6gw5rc_.dbf		280	  32768 YES	     640 AVAILABLE
+USERS					7 /u01/app/oracle/oradata/BANK/datafile/o1_mf_users_mt6gw6tx_.dbf		  5	  32768 YES	     160 AVAILABLE
+USERS				       13 /u01/app/oracle/oradata/BANK/datafile/users2_.dbf				  5	  32768 YES	       1 AVAILABLE
+
+SQL> 
+SQL> show pdbs;
+
+    CON_ID CON_NAME			  OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+	 2 PDB$SEED			  READ ONLY  NO
+	 3 HDFC 			  READ WRITE NO
+SQL> select FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||bytes from dba_data_files where file_id = 14;
+
+no rows selected
+
+SQL> select FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||bytes from dba_data_files where file_id = 13;
+
+FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||BYTES
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/u01/app/oracle/oradata/BANK/datafile/users2_.dbf,USERS,13,AVAILABLE,5242880
+
+SQL> /
+
+FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||BYTES
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/u01/app/oracle/oradata/BANK/datafile/users2_.dbf,USERS,13,AVAILABLE,5242880
+
+SQL> /
+
+FILE_NAME||','||TABLESPACE_NAME||','||FILE_ID||','||STATUS||','||BYTES
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/u01/app/oracle/oradata/BANK/datafile/users2_.dbf,USERS,13,AVAILABLE,5242880
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> /
+/
+/
+/
+/
+
+System altered.
+
+SQL> 
+System altered.
+
+SQL> 
+
+System altered.
+
+SQL> 
+System altered.
+
+SQL> 
+
+System altered.
+
+SQL> SQL> SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> set lines 300 pages 300;
+SELECT sequence#, first_time, next_time, applied FROM v$archived_log ORDER BY sequence#;SQL> 
+
+ SEQUENCE# FIRST_TIM NEXT_TIME APPLIED
+---------- --------- --------- ---------
+	 7 05-FEB-25 05-FEB-25 YES
+	 8 05-FEB-25 05-FEB-25 YES
+	 8 05-FEB-25 05-FEB-25 YES
+	
+156 rows selected.
+
+SQL> set lines 200
+col DESTINATION for a30
+col ERROR for a50
+select DESTINATION,TYPE,ARCHIVED_THREAD#,APPLIED_SEQ#,ARCHIVED_SEQ#,GAP_STATUS,error from v$archive_dest_status where DEST_ID=2;SQL> SQL> SQL> 
+
+DESTINATION		       TYPE		ARCHIVED_THREAD# APPLIED_SEQ# ARCHIVED_SEQ# GAP_STATUS		     ERROR
+------------------------------ ---------------- ---------------- ------------ ------------- ------------------------ --------------------------------------------------
+to_ba			       PHYSICAL 		       1	   86		 87 NO GAP
+
+SQL> 
+
+
+
+
+
+
+
+
+
+
+
+=======================================================
+Standby
+
+
+[oracle@banka ~]$ . oraenv
+ORACLE_SID = [banka] ? banka
+The Oracle base remains unchanged with value /u01/app/oracle
+[oracle@banka ~]$ sqlplus  / as sysdba
+
+SQL> startup;
+
+SQL> clear screen
+
+
+78 rows selected.
+sql> SHOW PARAMETER standby_file_management;
+SQL> alter system set standby_file_management = manual scope = both;
+
+System altered.
+
+SQL> 
+SQL> 
+SQL> COLUMN file_name FORMAT A70;
+SELECT tablespace_name,
+		file_id,
+       file_name,
+       ROUND(bytes/1024/1024) AS size_mb,
+       ROUND(maxbytes/1024/1024) AS max_size_mb,
+       autoextensible,
+       increment_by,
+       status
+FROM   dba_data_files
+--WHERE  tablespace_name = 'USERS'
+ORDER BY file_id;SQL>   2    3    4    5    6    7    8    9   10   11  
+FROM   dba_data_files
+       *
+ERROR at line 9:
+ORA-01219: database or pluggable database not open: queries allowed on fixed tables or views only
+
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME			  OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+	 2 PDB$SEED			  MOUNTED
+	 3 HDFC 			  MOUNTED
+SQL> alter session set container=HDFC;
+
+Session altered.
+
+SQL> COLUMN file_name FORMAT A70;
+SELECT tablespace_name,
+		file_id,
+       file_name,
+       ROUND(bytes/1024/1024) AS size_mb,
+       ROUND(maxbytes/1024/1024) AS max_size_mb,
+       autoextensible,
+       increment_by,
+       status
+FROM   dba_data_files
+--WHERE  tablespace_name = 'USERS'
+ORDER BY file_id;SQL>   2    3    4    5    6    7    8    9   10   11  
+FROM   dba_data_files
+       *
+ERROR at line 9:
+ORA-01219: database or pluggable database not open: queries allowed on fixed tables or views only
+
+
+SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+[oracle@banka ~]$ !sq
+sqlplus  / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Thu Feb 6 16:35:32 2025
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select FILE#||','||ERROR||','||STATUS||','||RECOVER||','||FUZZY||','||NAME from v$datafile_header where ERROR='FILE MISSING';
+
+FILE#||','||ERROR||','||STATUS||','||RECOVER||','||FUZZY||','||NAME
+--------------------------------------------------------------------------------
+13,FILE MISSING,ONLINE,,,
+
+SQL> select file#,name from v$datafile where file#=13;
+
+     FILE#
+----------
+NAME
+--------------------------------------------------------------------------------
+	13
+/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/UNNAMED00013
+
+
+SQL> alter database create datafile '/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/UNNAMED00013' as '/u01/app/oracle/oradata/BANKA/datafile/user2.dbf' size 50M;
+
+Database altered.
+alter database create datafile '/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/UNNAMED00016' as '/u01/app/oracle/oradata/BANKA/datafile/user2.dbf' size 50M;
+SQL> alter system set standby_file_management=AUTO sid='*';
+
+System altered.
+
+SQL> alter database recover managed standby database disconnect from session;
+
+Database altered.
+
+SQL> select FILE#||','||ERROR||','||STATUS||','||RECOVER||','||FUZZY||','||NAME from v$datafile_header where ERROR='FILE MISSING';
+
+no rows selected
+
+SQL> set lines 300 pages 300;
+SELECT sequence#, first_time, next_time, applied FROM v$archived_log ORDER BY sequence#;SQL> 
+
+ SEQUENCE# FIRST_TIM NEXT_TIME APPLIED
+---------- --------- --------- ---------
+	 8 05-FEB-25 05-FEB-25 YES
+	 9 05-FEB-25 05-FEB-25 YES
+	10 05-FEB-25 05-FEB-25 YES
+	11 05-FEB-25 05-FEB-25 YES
+	12 05-FEB-25 05-FEB-25 YES
+	13 05-FEB-25 05-FEB-25 YES
+	14 05-FEB-25 05-FEB-25 YES
+	15 05-FEB-25 05-FEB-25 YES
+	16 05-FEB-25 05-FEB-25 YES
+	17 05-FEB-25 05-FEB-25 YES
+	18 05-FEB-25 05-FEB-25 YES
+	19 05-FEB-25 05-FEB-25 YES
+	20 05-FEB-25 05-FEB-25 YES
+	21 05-FEB-25 05-FEB-25 YES
+	22 05-FEB-25 05-FEB-25 YES
+	23 05-FEB-25 05-FEB-25 YES
+	24 05-FEB-25 05-FEB-25 YES
+	25 05-FEB-25 05-FEB-25 YES
+	26 05-FEB-25 05-FEB-25 YES
+	27 05-FEB-25 05-FEB-25 YES
+	28 05-FEB-25 05-FEB-25 YES
+	29 05-FEB-25 05-FEB-25 YES
+	30 05-FEB-25 05-FEB-25 YES
+	31 05-FEB-25 05-FEB-25 YES
+	32 05-FEB-25 05-FEB-25 YES
+	33 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	38 05-FEB-25 05-FEB-25 NO
+	38 05-FEB-25 05-FEB-25 YES
+	39 05-FEB-25 05-FEB-25 YES
+	40 05-FEB-25 05-FEB-25 YES
+	41 05-FEB-25 05-FEB-25 YES
+	42 05-FEB-25 05-FEB-25 YES
+	43 05-FEB-25 05-FEB-25 YES
+	44 05-FEB-25 05-FEB-25 YES
+	45 05-FEB-25 05-FEB-25 YES
+	46 05-FEB-25 05-FEB-25 YES
+	47 05-FEB-25 05-FEB-25 YES
+	48 05-FEB-25 05-FEB-25 YES
+	49 05-FEB-25 05-FEB-25 YES
+	50 05-FEB-25 05-FEB-25 YES
+	51 05-FEB-25 05-FEB-25 YES
+	52 05-FEB-25 05-FEB-25 YES
+	53 05-FEB-25 05-FEB-25 YES
+	54 05-FEB-25 05-FEB-25 YES
+	55 05-FEB-25 05-FEB-25 YES
+	56 05-FEB-25 05-FEB-25 YES
+	57 05-FEB-25 05-FEB-25 YES
+	58 05-FEB-25 05-FEB-25 YES
+	59 05-FEB-25 05-FEB-25 YES
+	60 05-FEB-25 05-FEB-25 YES
+	61 05-FEB-25 05-FEB-25 YES
+	62 05-FEB-25 05-FEB-25 YES
+	63 05-FEB-25 05-FEB-25 YES
+	64 05-FEB-25 05-FEB-25 YES
+	65 05-FEB-25 05-FEB-25 YES
+	66 05-FEB-25 05-FEB-25 YES
+	67 05-FEB-25 06-FEB-25 YES
+	68 06-FEB-25 06-FEB-25 YES
+	69 06-FEB-25 06-FEB-25 YES
+	70 06-FEB-25 06-FEB-25 YES
+	71 06-FEB-25 06-FEB-25 YES
+	72 06-FEB-25 06-FEB-25 YES
+	73 06-FEB-25 06-FEB-25 YES
+	74 06-FEB-25 06-FEB-25 YES
+	75 06-FEB-25 06-FEB-25 YES
+	76 06-FEB-25 06-FEB-25 YES
+	77 06-FEB-25 06-FEB-25 YES
+	78 06-FEB-25 06-FEB-25 YES
+	79 06-FEB-25 06-FEB-25 YES
+	80 06-FEB-25 06-FEB-25 YES
+	81 06-FEB-25 06-FEB-25 YES
+	82 06-FEB-25 06-FEB-25 IN-MEMORY
+	83 06-FEB-25 06-FEB-25 IN-MEMORY
+	84 06-FEB-25 06-FEB-25 IN-MEMORY
+	85 06-FEB-25 06-FEB-25 IN-MEMORY
+	86 06-FEB-25 06-FEB-25 NO
+	87 06-FEB-25 06-FEB-25 IN-MEMORY
+
+85 rows selected.
+
+SQL> /
+
+ SEQUENCE# FIRST_TIM NEXT_TIME APPLIED
+---------- --------- --------- ---------
+	 8 05-FEB-25 05-FEB-25 YES
+	 9 05-FEB-25 05-FEB-25 YES
+	10 05-FEB-25 05-FEB-25 YES
+	11 05-FEB-25 05-FEB-25 YES
+	12 05-FEB-25 05-FEB-25 YES
+	13 05-FEB-25 05-FEB-25 YES
+	14 05-FEB-25 05-FEB-25 YES
+	15 05-FEB-25 05-FEB-25 YES
+	16 05-FEB-25 05-FEB-25 YES
+	17 05-FEB-25 05-FEB-25 YES
+	18 05-FEB-25 05-FEB-25 YES
+	19 05-FEB-25 05-FEB-25 YES
+	20 05-FEB-25 05-FEB-25 YES
+	21 05-FEB-25 05-FEB-25 YES
+	22 05-FEB-25 05-FEB-25 YES
+	23 05-FEB-25 05-FEB-25 YES
+	24 05-FEB-25 05-FEB-25 YES
+	25 05-FEB-25 05-FEB-25 YES
+	26 05-FEB-25 05-FEB-25 YES
+	27 05-FEB-25 05-FEB-25 YES
+	28 05-FEB-25 05-FEB-25 YES
+	29 05-FEB-25 05-FEB-25 YES
+	30 05-FEB-25 05-FEB-25 YES
+	31 05-FEB-25 05-FEB-25 YES
+	32 05-FEB-25 05-FEB-25 YES
+	33 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	38 05-FEB-25 05-FEB-25 NO
+	38 05-FEB-25 05-FEB-25 YES
+	39 05-FEB-25 05-FEB-25 YES
+	40 05-FEB-25 05-FEB-25 YES
+	41 05-FEB-25 05-FEB-25 YES
+	42 05-FEB-25 05-FEB-25 YES
+	43 05-FEB-25 05-FEB-25 YES
+	44 05-FEB-25 05-FEB-25 YES
+	45 05-FEB-25 05-FEB-25 YES
+	46 05-FEB-25 05-FEB-25 YES
+	47 05-FEB-25 05-FEB-25 YES
+	48 05-FEB-25 05-FEB-25 YES
+	49 05-FEB-25 05-FEB-25 YES
+	50 05-FEB-25 05-FEB-25 YES
+	51 05-FEB-25 05-FEB-25 YES
+	52 05-FEB-25 05-FEB-25 YES
+	53 05-FEB-25 05-FEB-25 YES
+	54 05-FEB-25 05-FEB-25 YES
+	55 05-FEB-25 05-FEB-25 YES
+	56 05-FEB-25 05-FEB-25 YES
+	57 05-FEB-25 05-FEB-25 YES
+	58 05-FEB-25 05-FEB-25 YES
+	59 05-FEB-25 05-FEB-25 YES
+	60 05-FEB-25 05-FEB-25 YES
+	61 05-FEB-25 05-FEB-25 YES
+	62 05-FEB-25 05-FEB-25 YES
+	63 05-FEB-25 05-FEB-25 YES
+	64 05-FEB-25 05-FEB-25 YES
+	65 05-FEB-25 05-FEB-25 YES
+	66 05-FEB-25 05-FEB-25 YES
+	67 05-FEB-25 06-FEB-25 YES
+	68 06-FEB-25 06-FEB-25 YES
+	69 06-FEB-25 06-FEB-25 YES
+	70 06-FEB-25 06-FEB-25 YES
+	71 06-FEB-25 06-FEB-25 YES
+	72 06-FEB-25 06-FEB-25 YES
+	73 06-FEB-25 06-FEB-25 YES
+	74 06-FEB-25 06-FEB-25 YES
+	75 06-FEB-25 06-FEB-25 YES
+	76 06-FEB-25 06-FEB-25 YES
+	77 06-FEB-25 06-FEB-25 YES
+	78 06-FEB-25 06-FEB-25 YES
+	79 06-FEB-25 06-FEB-25 YES
+	80 06-FEB-25 06-FEB-25 YES
+	81 06-FEB-25 06-FEB-25 YES
+	82 06-FEB-25 06-FEB-25 IN-MEMORY
+	83 06-FEB-25 06-FEB-25 IN-MEMORY
+	84 06-FEB-25 06-FEB-25 IN-MEMORY
+	85 06-FEB-25 06-FEB-25 IN-MEMORY
+	86 06-FEB-25 06-FEB-25 NO
+	87 06-FEB-25 06-FEB-25 IN-MEMORY
+
+85 rows selected.
+
+SQL> /
+
+ SEQUENCE# FIRST_TIM NEXT_TIME APPLIED
+---------- --------- --------- ---------
+	 8 05-FEB-25 05-FEB-25 YES
+	 9 05-FEB-25 05-FEB-25 YES
+	10 05-FEB-25 05-FEB-25 YES
+	11 05-FEB-25 05-FEB-25 YES
+	12 05-FEB-25 05-FEB-25 YES
+	13 05-FEB-25 05-FEB-25 YES
+	14 05-FEB-25 05-FEB-25 YES
+	15 05-FEB-25 05-FEB-25 YES
+	16 05-FEB-25 05-FEB-25 YES
+	17 05-FEB-25 05-FEB-25 YES
+	18 05-FEB-25 05-FEB-25 YES
+	19 05-FEB-25 05-FEB-25 YES
+	20 05-FEB-25 05-FEB-25 YES
+	21 05-FEB-25 05-FEB-25 YES
+	22 05-FEB-25 05-FEB-25 YES
+	23 05-FEB-25 05-FEB-25 YES
+	24 05-FEB-25 05-FEB-25 YES
+	25 05-FEB-25 05-FEB-25 YES
+	26 05-FEB-25 05-FEB-25 YES
+	27 05-FEB-25 05-FEB-25 YES
+	28 05-FEB-25 05-FEB-25 YES
+	29 05-FEB-25 05-FEB-25 YES
+	30 05-FEB-25 05-FEB-25 YES
+	31 05-FEB-25 05-FEB-25 YES
+	32 05-FEB-25 05-FEB-25 YES
+	33 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	34 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	35 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	36 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	37 05-FEB-25 05-FEB-25 YES
+	38 05-FEB-25 05-FEB-25 NO
+	38 05-FEB-25 05-FEB-25 YES
+	39 05-FEB-25 05-FEB-25 YES
+	40 05-FEB-25 05-FEB-25 YES
+	41 05-FEB-25 05-FEB-25 YES
+	42 05-FEB-25 05-FEB-25 YES
+	43 05-FEB-25 05-FEB-25 YES
+	44 05-FEB-25 05-FEB-25 YES
+	45 05-FEB-25 05-FEB-25 YES
+	46 05-FEB-25 05-FEB-25 YES
+	47 05-FEB-25 05-FEB-25 YES
+	48 05-FEB-25 05-FEB-25 YES
+	49 05-FEB-25 05-FEB-25 YES
+	50 05-FEB-25 05-FEB-25 YES
+	51 05-FEB-25 05-FEB-25 YES
+	52 05-FEB-25 05-FEB-25 YES
+	53 05-FEB-25 05-FEB-25 YES
+	54 05-FEB-25 05-FEB-25 YES
+	55 05-FEB-25 05-FEB-25 YES
+	56 05-FEB-25 05-FEB-25 YES
+	57 05-FEB-25 05-FEB-25 YES
+	58 05-FEB-25 05-FEB-25 YES
+	59 05-FEB-25 05-FEB-25 YES
+	60 05-FEB-25 05-FEB-25 YES
+	61 05-FEB-25 05-FEB-25 YES
+	62 05-FEB-25 05-FEB-25 YES
+	63 05-FEB-25 05-FEB-25 YES
+	64 05-FEB-25 05-FEB-25 YES
+	65 05-FEB-25 05-FEB-25 YES
+	66 05-FEB-25 05-FEB-25 YES
+	67 05-FEB-25 06-FEB-25 YES
+	68 06-FEB-25 06-FEB-25 YES
+	69 06-FEB-25 06-FEB-25 YES
+	70 06-FEB-25 06-FEB-25 YES
+	71 06-FEB-25 06-FEB-25 YES
+	72 06-FEB-25 06-FEB-25 YES
+	73 06-FEB-25 06-FEB-25 YES
+	74 06-FEB-25 06-FEB-25 YES
+	75 06-FEB-25 06-FEB-25 YES
+	76 06-FEB-25 06-FEB-25 YES
+	77 06-FEB-25 06-FEB-25 YES
+	78 06-FEB-25 06-FEB-25 YES
+	79 06-FEB-25 06-FEB-25 YES
+	80 06-FEB-25 06-FEB-25 YES
+	81 06-FEB-25 06-FEB-25 YES
+	82 06-FEB-25 06-FEB-25 IN-MEMORY
+	83 06-FEB-25 06-FEB-25 IN-MEMORY
+	84 06-FEB-25 06-FEB-25 IN-MEMORY
+	85 06-FEB-25 06-FEB-25 IN-MEMORY
+	86 06-FEB-25 06-FEB-25 NO
+	87 06-FEB-25 06-FEB-25 IN-MEMORY
+
+85 rows selected.
+
+SQL> 
+
+
+
+[oracle@banka ~]$ lsnrctl start
+
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 06-FEB-2025 16:18:31
+
+Copyright (c) 1991, 2019, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/19.0.0.0/dbhome_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+System parameter file is /u01/app/oracle/product/19.0.0.0/dbhome_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/banka/listener/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.0.197)(PORT=1521)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.0.197)(PORT=1521)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+Start Date                06-FEB-2025 16:18:37
+Uptime                    0 days 0 hr. 0 min. 6 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/19.0.0.0/dbhome_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/banka/listener/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.0.197)(PORT=1521)))
+Services Summary...
+Service "banka_DGMGRL" has 1 instance(s).
+  Instance "banka", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+[oracle@banka ~]$ cd
+[oracle@banka ~]$ cd /u01/app/oracle/fast_recovery_area/BANKA/archivelog/
+[oracle@banka archivelog]$ ll
+total 8
+drwxr-x---. 2 oracle oinstall 4096 Feb  5 21:56 2025_02_05
+drwxr-x---. 2 oracle oinstall 4096 Feb  6 16:21 2025_02_06
+[oracle@banka archivelog]$ cd 2025_02_06
+[oracle@banka 2025_02_06]$ ls -lrtah
+total 2.7M
+drwxr-x---. 4 oracle oinstall   42 Feb  6 16:13 ..
+-rw-r-----. 1 oracle oinstall 1.5K Feb  6 16:19 o1_mf_1_69_mt94ycv2_.arc
+-rw-r-----. 1 oracle oinstall  98K Feb  6 16:19 o1_mf_1_67_mt94yd58_.arc
+-rw-r-----. 1 oracle oinstall  11K Feb  6 16:19 o1_mf_1_70_mt94yd7q_.arc
+-rw-r-----. 1 oracle oinstall 1.0K Feb  6 16:19 o1_mf_1_71_mt94yd8l_.arc
+-rw-r-----. 1 oracle oinstall 3.0K Feb  6 16:19 o1_mf_1_72_mt94ydfs_.arc
+-rw-r-----. 1 oracle oinstall 1.0K Feb  6 16:19 o1_mf_1_73_mt94ydgl_.arc
+-rw-r-----. 1 oracle oinstall 2.5K Feb  6 16:19 o1_mf_1_74_mt94ydko_.arc
+-rw-r-----. 1 oracle oinstall 1.0K Feb  6 16:19 o1_mf_1_75_mt94ydlg_.arc
+-rw-r-----. 1 oracle oinstall 1.0K Feb  6 16:19 o1_mf_1_76_mt94ydr2_.arc
+-rw-r-----. 1 oracle oinstall 2.5K Feb  6 16:19 o1_mf_1_77_mt94ydsp_.arc
+-rw-r-----. 1 oracle oinstall 2.4M Feb  6 16:19 o1_mf_1_68_mt94ykgg_.arc
+-rw-r-----. 1 oracle oinstall 192K Feb  6 16:21 o1_mf_1_78_mt951mrl_.arc
+-rw-r-----. 1 oracle oinstall 1.5K Feb  6 16:21 o1_mf_1_79_mt951nqs_.arc
+drwxr-x---. 2 oracle oinstall 4.0K Feb  6 16:21 .
+-rw-r-----. 1 oracle oinstall 3.5K Feb  6 16:21 o1_mf_1_80_mt951rl4_.arc
+[oracle@banka 2025_02_06]$ pwd
+/u01/app/oracle/fast_recovery_area/BANKA/archivelog/2025_02_06
+[oracle@banka 2025_02_06]$ ^C
+[oracle@banka 2025_02_06]$ cd /u01/app/oracle/oradata/BANKA
+[oracle@banka BANKA]$ ll
+total 8
+drwxr-x---. 3 oracle oinstall   22 Feb  5 17:13 2D639B0C40361521E0632342031FE634
+drwxr-x---. 3 oracle oinstall   22 Feb  5 17:13 2D63CA49FB3A1D9CE0632342031F38B7
+drwxr-x---. 2 oracle oinstall 4096 Feb  5 17:48 datafile
+drwxr-x---. 2 oracle oinstall 4096 Feb  5 17:15 onlinelog
+[oracle@banka BANKA]$ cd datafile
+[oracle@banka datafile]$ ll
+total 1746976
+-rw-r-----. 1 oracle oinstall 555753472 Feb  6 16:30 o1_mf_sysaux_mt6mqo2y_.dbf
+-rw-r-----. 1 oracle oinstall 933240832 Feb  6 16:30 o1_mf_system_mt6mp7ow_.dbf
+-rw-r-----. 1 oracle oinstall  33562624 Feb  5 17:48 o1_mf_temp_mt6orkxv_.tmp
+-rw-r-----. 1 oracle oinstall 293609472 Feb  6 16:30 o1_mf_undotbs1_mt6mqwcs_.dbf
+-rw-r-----. 1 oracle oinstall   5251072 Feb  6 16:30 o1_mf_users_mt6mrgty_.dbf
+[oracle@banka datafile]$ cd ..
+[oracle@banka BANKA]$ cd 2D63CA49FB3A1D9CE0632342031F38B7
+[oracle@banka 2D63CA49FB3A1D9CE0632342031F38B7]$ ll
+total 4
+drwxr-x---. 2 oracle oinstall 4096 Feb  5 17:48 datafile
+[oracle@banka 2D63CA49FB3A1D9CE0632342031F38B7]$ cd datafile/
+[oracle@banka datafile]$ ll
+total 722976
+-rw-r-----. 1 oracle oinstall 346038272 Feb  6 16:30 o1_mf_sysaux_mt6ms7c5_.dbf
+-rw-r-----. 1 oracle oinstall 283123712 Feb  6 16:30 o1_mf_system_mt6mrr76_.dbf
+-rw-r-----. 1 oracle oinstall  37756928 Feb  5 17:48 o1_mf_temp_mt6oryhm_.tmp
+-rw-r-----. 1 oracle oinstall 104865792 Feb  6 16:30 o1_mf_undotbs1_mt6msgk0_.dbf
+-rw-r-----. 1 oracle oinstall   5251072 Feb  6 16:30 o1_mf_users_mt6msksq_.dbf
+[oracle@banka datafile]$ pwd
+/u01/app/oracle/oradata/BANKA/2D63CA49FB3A1D9CE0632342031F38B7/datafile
+[oracle@banka datafile]$ alter database create datafile '/u01/app/oracle/product/19.0.0.0/dbhome_1/dbs/UNNAMED00013' as '/u01/app/oracle/oradata/BANKA/datafile/user2.dbf' size 50M;
+bash: alter: command not found...
+[oracle@banka datafile]$ /u01/app/oracle/fast_recovery_area/BANKA/archivelog/2025_02_06
+bash: /u01/app/oracle/fast_recovery_area/BANKA/archivelog/2025_02_06: Is a directory
+[oracle@banka datafile]$ ll
+total 722976
+-rw-r-----. 1 oracle oinstall 346038272 Feb  6 16:52 o1_mf_sysaux_mt6ms7c5_.dbf
+-rw-r-----. 1 oracle oinstall 283123712 Feb  6 16:58 o1_mf_system_mt6mrr76_.dbf
+-rw-r-----. 1 oracle oinstall  37756928 Feb  5 17:48 o1_mf_temp_mt6oryhm_.tmp
+-rw-r-----. 1 oracle oinstall 104865792 Feb  6 16:58 o1_mf_undotbs1_mt6msgk0_.dbf
+-rw-r-----. 1 oracle oinstall   5251072 Feb  6 16:52 o1_mf_users_mt6msksq_.dbf
+[oracle@banka datafile]$ 
