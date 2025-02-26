@@ -1,0 +1,125 @@
+[grid@rac ~]$ $ORACLE_HOME/deinstall/deinstall
+bash: /deinstall/deinstall: No such file or directory
+[grid@rac ~]$ $ORACLE_HOME/deinstall/deinstall
+Checking for required files and bootstrapping ...
+Please wait ...
+Location of logs /tmp/deinstall2025-02-11_02-18-12PM/logs/
+
+############ ORACLE DECONFIG TOOL START ############
+
+
+######################### DECONFIG CHECK OPERATION START #########################
+## [START] Install check configuration ##
+
+
+Checking for existence of the Oracle home location /u01/app/19.0.0/grid
+Oracle Home type selected for deinstall is: Oracle Grid Infrastructure for a Cluster
+Oracle Base selected for deinstall is: /u01/app/grid
+Checking for existence of central inventory location /u01/app/oraInventory
+Checking for existence of the Oracle Grid Infrastructure home /u01/app/19.0.0/grid
+The following nodes are part of this cluster: rac
+Checking for sufficient temp space availability on node(s) : 'rac'
+
+## [END] Install check configuration ##
+
+Traces log file: /tmp/deinstall2025-02-11_02-18-12PM/logs//crsdc_2025-02-11_02-18-36-PM.log
+
+Network Configuration check config START
+
+Network de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/netdc_check2025-02-11_02-18-39PM.log
+
+Network Configuration check config END
+
+Asm Check Configuration START
+
+ASM de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/asmcadc_check2025-02-11_02-18-39PM.log
+
+ASM configuration was not detected in this Oracle home. Was ASM configured in this Oracle home (y|n) [n]: y
+Automatic Storage Management (ASM) instance is detected in this Oracle home /u01/app/19.0.0/grid.
+ASM Diagnostic Destination : /u01/app/grid
+ASM Diskgroups : 
+ASM diskstring : /dev/oracleasm/disks*
+Diskgroups will not be dropped
+ If you want to retain the existing diskgroups or if any of the information detected is incorrect, you can modify by entering 'y'. Do you  want to modify above information (y|n) [n]: y
+Is Grid Infrastructure Storage(OCR) in ASM diskgroup (y|n) [y]: y
+
+SQL> SELECT group_number, name FROM v$asm_diskgroup;
+
+GROUP_NUMBER NAME
+------------ ------------------------------
+	   1 OCRDG
+
+
+Enter the OCR/Voting Disk diskgroup name [+OCRDG]: OCRDG
+
+SQL> show parameter diagnostic_dest;
+
+NAME				     TYPE	 VALUE
+------------------------------------ ----------- ------------------------------
+diagnostic_dest 		     string	 /u01/app/grid
+
+
+Specify the ASM Diagnostic Destination [/u01/app/grid]: /u01/app/grid
+Specify the diskstring [/dev/oracleasm/disks*]: OCR01
+Specify the diskgroups that are managed by this ASM instance []: OCRDG
+
+De-configuring ASM will drop the diskgroups at cleanup time. Do you want deconfig tool to drop the diskgroups (y|n) [y]: y
+
+Database Check Configuration START
+
+Database de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/databasedc_check2025-02-11_02-18-39PM.log
+
+Oracle Grid Management database was not found in this Grid Infrastructure home
+
+Database Check Configuration END
+
+######################### DECONFIG CHECK OPERATION END #########################
+
+
+####################### DECONFIG CHECK OPERATION SUMMARY #######################
+Oracle Grid Infrastructure Home is: /u01/app/19.0.0/grid
+The following nodes are part of this cluster: rac
+The cluster node(s) on which the Oracle home deinstallation will be performed are:rac
+Oracle Home selected for deinstall is: /u01/app/19.0.0/grid
+Inventory Location where the Oracle home registered is: /u01/app/oraInventory
+ASM instance will be de-configured from this Oracle home
+Oracle Grid Management database was not found in this Grid Infrastructure home
+Do you want to continue (y - yes, n - no)? [n]: y
+A log of this session will be written to: '/tmp/deinstall2025-02-11_02-18-12PM/logs/deinstall_deconfig2025-02-11_02-18-32-PM.out'
+Any error messages from this session will be written to: '/tmp/deinstall2025-02-11_02-18-12PM/logs/deinstall_deconfig2025-02-11_02-18-32-PM.err'
+
+######################## DECONFIG CLEAN OPERATION START ########################
+Database de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/databasedc_clean2025-02-11_02-18-39PM.log
+ASM de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/asmcadc_clean2025-02-11_02-18-39PM.log
+ASM Clean Configuration START
+ASM Clean Configuration END
+
+Network Configuration clean config START
+
+Network de-configuration trace file location: /tmp/deinstall2025-02-11_02-18-12PM/logs/netdc_clean2025-02-11_02-18-39PM.log
+
+The network configuration has been cleaned up successfully.
+
+Network Configuration clean config END
+
+
+---------------------------------------->
+
+The deconfig command below can be executed in parallel on all the remote nodes. Execute the command on  the local node after the execution completes on all the remote nodes.
+
+Run the following command as the root user or the administrator on node "rac".
+
+/u01/app/19.0.0/grid/crs/install/rootcrs.sh -force  -deconfig -paramfile "/tmp/deinstall2025-02-11_02-18-12PM/response/deinstall_OraGI19Home1.rsp" -lastnode
+
+Press Enter after you finish running the above commands
+
+<----------------------------------------
+
+
+---------------------------------------->
+
+
+[root@rac ~]# /u01/app/19.0.0/grid/crs/install/rootcrs.sh -force  -deconfig -paramfile "/tmp/deinstall2025-02-11_02-18-12PM/response/deinstall_OraGI19Home1.rsp" -lastnode
+
+
+done
